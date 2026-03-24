@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import BottomNavbar from "@/components/bottom-navbar/BottomNavbar";
 
 export default function Page() {
   const router = useRouter();
@@ -13,5 +14,9 @@ export default function Page() {
 
   if (!isLogged) return null;
 
-  return <main>{/* ... */}</main>;
+  return (
+    <main>
+      <BottomNavbar />
+    </main>
+  );
 }
