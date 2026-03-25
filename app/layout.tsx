@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import BottomNavbar from "@/components/bottom-navbar/BottomNavbar";
 
 const interSans = Inter({
   variable: "--font-geist-sans",
@@ -21,6 +22,7 @@ export default function RootLayout({
     <html lang="pl">
       <body className={`${interSans.variable} antialiased w-svw min-h-svh`}>
         {children}
+        <BottomNavbar />
       </body>
     </html>
   );
