@@ -1,10 +1,14 @@
+"use client";
+
 import SingleIcon from "./SingleIcon";
-import HomeIcon from "@/public/icons/home-icon.svg";
+import { navItems } from "@/utils/navItems";
 
 export default function BottomNavbar() {
   return (
-    <div className="w-full h-20 absolute bottom-0 flex items-center justify-center bg-foreground px-16 ">
-      <SingleIcon Icon={HomeIcon} />
+    <div className="w-full h-20 absolute bottom-0 flex gap-16 items-center justify-center bg-foreground px-16 ">
+      {navItems.map((item, index) => (
+        <SingleIcon key={index} Icon={item.icon} path={item.path} />
+      ))}
     </div>
   );
 }
