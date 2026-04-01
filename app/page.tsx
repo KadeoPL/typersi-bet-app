@@ -1,17 +1,11 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import Avatar from "@/components/avatar/Avatar";
+import NoMatchesInfo from "@/components/NoMatchesInfo";
 
 export default function Page() {
-  const router = useRouter();
-  const isLogged = true;
-
-  useEffect(() => {
-    if (!isLogged) router.push("/login");
-  }, [isLogged, router]);
-
-  if (!isLogged) return null;
-
-  return <main></main>;
+  return (
+    <main>
+      <Avatar />
+      <NoMatchesInfo />
+    </main>
+  );
 }
