@@ -12,6 +12,7 @@ module.exports = {
         foreground: "#171717",
         primary: "#E4FF13",
         darkGray: "#494949",
+        lightGray: "#F0F1F5",
       },
     },
   },

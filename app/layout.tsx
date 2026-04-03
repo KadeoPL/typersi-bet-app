@@ -20,8 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body className={`${interSans.variable} antialiased w-svw min-h-svh`}>
-        <div className="w-svw p-10 h-svh">{children}</div>
+      <body
+        className={`${interSans.variable} antialiased w-svw min-h-svh bg-lightGray`}
+      >
+        <div className="w-svw p-8 h-svh">{children}</div>
         <BottomNavbar />
       </body>
     </html>
