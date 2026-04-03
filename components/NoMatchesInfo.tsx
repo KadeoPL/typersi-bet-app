@@ -19,7 +19,7 @@ export default function NoMatchesInfo() {
         <p>Obecnie brak rozgrywek</p>
       </div>
       <div>
-        <MainButton text="Sprawdź terminarz" />
+        <MainButton text="Sprawdź terminarz" url="/mecze" />
       </div>
     </div>
   );
