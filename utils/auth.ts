@@ -14,12 +14,10 @@ export const auth = betterAuth({
     additionalFields: {
       role: {
         type: "string",
-        required: true,
         defaultValue: "user",
       },
-      isPasswordChange: {
+      is_password_changed: {
         type: "boolean",
-        required: true,
         defaultValue: false,
       },
     },
