@@ -5,18 +5,19 @@ import { InputHTMLAttributes } from "react";
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   error?: string;
-  type: "password" | "string";
+  type?: "password" | "string";
+  variant?: "default" | "black";
 };
 
-export function Input({ label, error, type, ...props }: Props) {
+export function Input({ label, error, type, variant, ...props }: Props) {
   return (
     <div className="flex flex-col gap-1 ">
       {label && <label className="text-sm">{label}</label>}
 
       <input
         {...props}
-        className="px-4 py-3 rounded-full bg-foreground text-white"
-        type={type}
+        className={`px-4 py-3 rounded-full  ${!variant || variant === "default" ? "bg-background text-black" : "bg-foreground text-white"}`}
+        type={type ? type : "string"}
       />
 
       {error && <p className="text-red-500 text-sm">{error}</p>}

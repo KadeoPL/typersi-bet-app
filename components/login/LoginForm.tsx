@@ -33,7 +33,7 @@ export default function LoginForm() {
         {...register("name")}
         placeholder="Wpisz swój login"
         error={errors.name?.message as string}
-        type="string"
+        variant="black"
       />
 
       <Input
@@ -41,6 +41,7 @@ export default function LoginForm() {
         placeholder="Wpisz swoje hasło"
         error={errors.name?.message as string}
         type="password"
+        variant="black"
       />
 
       <input type="submit" />
