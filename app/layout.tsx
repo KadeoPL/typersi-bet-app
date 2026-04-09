@@ -23,8 +23,7 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} antialiased w-svw min-h-svh bg-lightGray`}
       >
-        <div className="w-svw p-8 h-svh">{children}</div>
-        <BottomNavbar />
+        {children}
       </body>
     </html>
   );
