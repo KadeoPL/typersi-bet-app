@@ -22,11 +22,11 @@ export default function page() {
             objectFit="contain"
           />
         </div>
-        <div className="text-center my-14">
+        <div className="text-center my-11">
           <h1 className="font-semibold text-3xl mb-1">Witaj ponownie!</h1>
           <h3>Zaloguj się do konta</h3>
         </div>
-        <div>
+        <div className="w-full max-w-[280px]">
           <LoginForm />
         </div>
       </div>

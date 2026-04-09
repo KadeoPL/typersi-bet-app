@@ -2,6 +2,7 @@
 
 import { useForm, Resolver } from "react-hook-form";
 import { userType } from "@/utils/types/user";
+import { Input } from "@/components/Input";
 
 const resolver: Resolver<userType> = async (values) => {
   return {
@@ -27,11 +28,20 @@ export default function LoginForm() {
   const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-5">
-      <input {...register("name")} placeholder="Wpisz swój login" />
-      {errors?.name && <p>{errors.name.message}</p>}
+    <form onSubmit={onSubmit} className="flex flex-col gap-3">
+      <Input
+        {...register("name")}
+        placeholder="Wpisz swój login"
+        error={errors.name?.message as string}
+        type="string"
+      />
 
-      <input {...register("password")} placeholder="Wpisz swoje hasło" />
+      <Input
+        {...register("password")}
+        placeholder="Wpisz swoje hasło"
+        error={errors.name?.message as string}
+        type="password"
+      />
 
       <input type="submit" />
     </form>
