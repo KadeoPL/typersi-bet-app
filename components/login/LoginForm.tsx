@@ -3,6 +3,7 @@
 import { useForm, Resolver } from "react-hook-form";
 import { userType } from "@/utils/types/user";
 import { Input } from "@/components/Input";
+import Button from "../Button";
 
 const resolver: Resolver<userType> = async (values) => {
   return {
@@ -44,7 +45,7 @@ export default function LoginForm() {
         variant="black"
       />
 
-      <input type="submit" />
+      <Button text="Zaloguj" onClick={onSubmit} />
     </form>
   );
 }
