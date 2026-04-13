@@ -1,24 +1,20 @@
 import { userType } from "./types/user";
-import { authClient } from "./auth-client";
+import { auth } from "./auth";
 
 export async function signUp(userData: userType) {
-  const { email, password, name } = userData;
+  try {
+    await auth.api.signUpEmail({
+      body: {
+        email: userData.email,
+        password: userData.password,
+        name: userData.username,
+        username: userData.username,
+        displayUsername: userData.username,
+      },
+    });
 
-  const { data, error } = await authClient.signUp.email({
-    email,
-    password,
-    name,
-  });
-
-  if (error) {
-    return {
-      success: false,
-      message: error.message,
-    };
+    return { success: true };
+  } catch (error) {
+    return { success: false, error };
   }
-
-  return {
-    success: true,
-    data,
-  };
 }

@@ -1,18 +1,15 @@
 "use client";
 
-import { signUp } from "@/utils/sign-up";
+import { createUser } from "./actions";
 
 export default function AddUser() {
   const handleClick = async () => {
-    const res = await signUp({
-      email: "test@test.com",
-      password: "12345678",
-      name: "Test",
-      role: "user",
-      isPasswordChange: false,
-    });
-
-    console.log(res);
+    const res = await createUser();
+    if (res.success) {
+      console.log("User dodany");
+    } else {
+      console.error(res.error);
+    }
   };
 
   return (
