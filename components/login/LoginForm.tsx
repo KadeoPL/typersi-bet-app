@@ -4,11 +4,12 @@ import { useForm, Resolver } from "react-hook-form";
 import { userType } from "@/utils/types/user";
 import { Input } from "@/components/Input";
 import Button from "../Button";
+import { signIn } from "@/utils/sign-in";
 
 const resolver: Resolver<userType> = async (values) => {
   return {
-    values: values.name ? values : {},
-    errors: !values.name
+    values: values.username ? values : {},
+    errors: !values.username
       ? {
           name: {
             type: "required",
@@ -26,21 +27,24 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<userType>({ resolver });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit(async (data) => {
+    const res = await signIn(data);
+    console.log(res);
+  });
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-3">
       <Input
-        {...register("name")}
+        {...register("username")}
         placeholder="Wpisz swój login"
-        error={errors.name?.message as string}
+        error={errors.username?.message as string}
         variant="black"
       />
 
       <Input
         {...register("password")}
         placeholder="Wpisz swoje hasło"
-        error={errors.name?.message as string}
+        error={errors.username?.message as string}
         type="password"
         variant="black"
       />

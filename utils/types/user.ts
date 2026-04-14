@@ -6,3 +6,8 @@ export type userType = {
   isPasswordChange: boolean;
   username: string;
 };
+
+export type userSignInType = {
+  username: string;
+  password: string;
+};
