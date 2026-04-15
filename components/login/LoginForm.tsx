@@ -1,35 +1,46 @@
 "use client";
-
-import { useForm, Resolver } from "react-hook-form";
-import { userType } from "@/utils/types/user";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
 import { Input } from "@/components/Input";
 import Button from "../Button";
 import { signIn } from "@/utils/sign-in";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const resolver: Resolver<userType> = async (values) => {
-  return {
-    values: values.username ? values : {},
-    errors: !values.username
-      ? {
-          name: {
-            type: "required",
-            message: "To pole jest wymagane",
-          },
-        }
-      : {},
-  };
-};
+export const loginSchema = z.object({
+  username: z
+    .string()
+    .nonempty("Nazwa użytkownika jest wymagana")
+    .min(3, "Zbyt krótka nazwa użytkownika"),
+
+  password: z
+    .string()
+    .nonempty("Hasło jest wymagane")
+    .min(8, "Minimalna długość hasła to 8 znaków"),
+});
 
 export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<userType>({ resolver });
+  } = useForm({ resolver: zodResolver(loginSchema) });
+
+  const [resError, setResError] = useState<string | undefined>("");
+
+  const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
     const res = await signIn(data);
-    console.log(res);
+    setResError("");
+    if (!res.success) {
+      setResError(res.message);
+      return;
+    }
+
+    router.refresh();
+    router.push("/");
   });
 
   return (
@@ -44,12 +55,14 @@ export default function LoginForm() {
       <Input
         {...register("password")}
         placeholder="Wpisz swoje hasło"
-        error={errors.username?.message as string}
+        error={errors.password?.message as string}
         type="password"
         variant="black"
       />
 
-      <Button text="Zaloguj" onClick={onSubmit} />
+      {resError && <p>{resError}</p>}
+
+      <Button text="Zaloguj" type="submit" />
     </form>
   );
 }
