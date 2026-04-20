@@ -3,9 +3,9 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/Input";
 import Button from "../Button";
-import { signIn } from "@/utils/sign-in";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { authClient } from "@/utils/auth-client";
 import { useRouter } from "next/navigation";
 
 export const loginSchema = z.object({
@@ -28,19 +28,20 @@ export default function LoginForm() {
   } = useForm({ resolver: zodResolver(loginSchema) });
 
   const [resError, setResError] = useState<string | undefined>("");
-
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await signIn(data);
-    setResError("");
-    if (!res.success) {
-      setResError(res.message);
-      return;
-    }
+    try {
+      await authClient.signIn.username({
+        username: data.username,
+        password: data.password,
+      });
 
-    router.refresh();
-    router.push("/");
+      router.push("/"); // 🔥 ręczny redirect
+      router.refresh(); // 🔥 żeby middleware zobaczył sesję
+    } catch (err) {
+      setResError("Nieprawidłowy login lub hasło");
+    }
   });
 
   return (

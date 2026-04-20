@@ -1,15 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export default function proxy(req: NextRequest) {
-  const isLoggedIn = !!req.cookies.get("better-auth.session-token");
+export default function middleware(req: NextRequest) {
+  const token = req.cookies.get("better-auth.session_token");
   const isAuthPage = req.nextUrl.pathname.startsWith("/login");
-  if (!isLoggedIn && !isAuthPage) {
+
+  if (token && isAuthPage) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
+  if (!token && !isAuthPage) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|favicon.ico).*)"],
+  matcher: ["/((?!_next|api/auth|favicon.ico).*)"],
 };
