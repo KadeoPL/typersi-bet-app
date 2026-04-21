@@ -37,8 +37,9 @@ export default function LoginForm() {
         password: data.password,
       });
 
-      router.push("/"); // 🔥 ręczny redirect
-      router.refresh(); // 🔥 żeby middleware zobaczył sesję
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 100);
     } catch (err) {
       setResError("Nieprawidłowy login lub hasło");
     }
