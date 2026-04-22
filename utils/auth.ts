@@ -3,13 +3,17 @@ import { Pool } from "pg";
 import { username } from "better-auth/plugins";
 
 export const auth = betterAuth({
-  baseURL: {
-    allowedHosts: ["localhost:*", "*.vercel.app"],
-    protocol: "auto",
-  },
   database: new Pool({
     connectionString: process.env.DATABASE_URL,
   }),
+
+  secret: process.env.BETTER_AUTH_SECRET,
+  cookies: {
+    secure: true,
+    sameSite: "lax",
+  },
+
+  baseURL: process.env.BETTER_AUTH_URL,
 
   emailAndPassword: {
     enabled: true,
