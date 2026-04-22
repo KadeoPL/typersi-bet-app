@@ -37,9 +37,7 @@ export default function LoginForm() {
         password: data.password,
       });
 
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 100);
+      router.push("/");
     } catch (err) {
       setResError("Nieprawidłowy login lub hasło");
     }
