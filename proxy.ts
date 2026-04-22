@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export default function middleware(req: NextRequest) {
-  const token = req.cookies.get("better-auth.session_token");
+  const token =
+    req.cookies.get("better-auth.session_token") ||
+    req.cookies.get("__Secure-better-auth.session_token");
   const isAuthPage = req.nextUrl.pathname.startsWith("/login");
 
   if (token && isAuthPage) {
