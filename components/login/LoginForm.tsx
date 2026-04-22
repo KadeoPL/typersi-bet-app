@@ -35,6 +35,8 @@ export default function LoginForm() {
       await authClient.signIn.username({
         username: data.username,
         password: data.password,
+
+        callbackURL: "/",
       });
 
       router.push("/");
