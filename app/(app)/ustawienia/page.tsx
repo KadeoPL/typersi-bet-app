@@ -1,7 +1,22 @@
+"use client";
+
 import Avatar from "@/components/avatar/Avatar";
+import { authClient } from "@/utils/auth-client";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function page() {
+  const router = useRouter();
+
+  const signOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+        },
+      },
+    });
+  };
   return (
     <div>
       <div className="mb-10">
@@ -13,7 +28,7 @@ export default function page() {
           <ul className="flex flex-col gap-3 text-black ml-3">
             <li>Wybierz zdjęcie profilowe</li>
             <li>Zmień hasło</li>
-            <li>Wyloguj</li>
+            <li onClick={signOut}>Wyloguj</li>
           </ul>
         </div>
         <div>

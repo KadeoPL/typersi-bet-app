@@ -8,7 +8,7 @@ export default function AddUser() {
     if (res.success) {
       console.log("User dodany");
     } else {
-      console.error(res.error);
+      console.error(res.message);
     }
   };
 

@@ -29,18 +29,22 @@ export default function LoginForm() {
 
   const [resError, setResError] = useState<string | undefined>("");
   const router = useRouter();
+  const [buttonState, setButtonState] = useState<"loading" | "normal">(
+    "normal",
+  );
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      setButtonState("loading");
       await authClient.signIn.username({
         username: data.username,
         password: data.password,
-
         callbackURL: "/",
       });
-
+      setButtonState("normal");
       router.push("/");
     } catch (err) {
+      setButtonState("normal");
       setResError("Nieprawidłowy login lub hasło");
     }
   });
@@ -64,7 +68,7 @@ export default function LoginForm() {
 
       {resError && <p>{resError}</p>}
 
-      <Button text="Zaloguj" type="submit" />
+      <Button text="Zaloguj" type="submit" state={buttonState} />
     </form>
   );
 }
