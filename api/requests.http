@@ -1,7 +1,7 @@
 
 POST http://localhost:8001/api/admin/matches
 Content-Type: application/json
-Authorization: sb_secret_FSwZBo-9TWky35tr0U-2CQ_E6m3Y0I_
+Authorization: xxxxxxxx
 
 {"matches":[
     {"date": "2026-06-11",
