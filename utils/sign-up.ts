@@ -13,12 +13,6 @@ export async function signUp(userData: userType) {
       },
     });
 
-    await auth.api.updateUser({
-      body: {
-        role: userData.role,
-      },
-    });
-
     return { success: true };
   } catch (error) {
     return { success: false, message: error };

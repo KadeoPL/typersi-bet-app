@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import BottomNavbar from "@/components/bottom-navbar/BottomNavbar";
 
-const interSans = Inter({
+export const interSans = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
