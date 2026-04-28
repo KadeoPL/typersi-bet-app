@@ -4,7 +4,7 @@ import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchPredictio
 
 export default function Page() {
   return (
-    <main>
+    <main className="mb-20">
       <Avatar />
       <NoMatchesInfo />
       <MatchPredictionsBox />

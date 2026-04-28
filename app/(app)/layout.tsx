@@ -8,7 +8,7 @@ export default function AppLayout({
 }>) {
   return (
     <div>
-      <div className="w-svw p-8 h-svh">{children}</div>
+      <div className="w-svw p-8 ">{children}</div>
       <BottomNavbar />
     </div>
   );

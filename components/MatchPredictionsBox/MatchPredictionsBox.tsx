@@ -3,12 +3,16 @@
 import React, { useState } from "react";
 import TeamBox from "./TeamBox";
 import PredictionsGoalInput from "./PredictionsGoalInput";
+import PredictionsTeamRadioInput from "./PredictionsTeamRadioInput";
+import Button from "../Button";
 
 export default function MatchPredictionsBox() {
   const [homeGoals, setHomeGoals] = useState<number | null>(null);
-  const [awawyGoals, setAwayGoals] = useState<number | null>(1);
+  const [awayGoals, setAwayGoals] = useState<number | null>(1);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
   return (
-    <div className="bg-black w-full rounded-2xl flex flex-col items-center">
+    <div className="bg-black w-full rounded-2xl flex flex-col items-center p-4 mt-6">
       <div className="bg-primary text-black font-semibold uppercase px-4 py-2 rounded-full text-xs my-4">
         Grupa A
       </div>
@@ -22,11 +26,20 @@ export default function MatchPredictionsBox() {
         </div>
         <TeamBox name="Polska" flag="" />
       </div>
-      <div className="flex gap-6 my-10 justify-center items-center">
+      <div className="flex gap-6 my-4 justify-center items-center">
         <PredictionsGoalInput goals={homeGoals} onChange={setHomeGoals} />
         <div className="text-2xl text-lightGray text-center">:</div>
-        <PredictionsGoalInput goals={awawyGoals} onChange={setAwayGoals} />
+        <PredictionsGoalInput goals={awayGoals} onChange={setAwayGoals} />
       </div>
+      <div>
+        <PredictionsTeamRadioInput
+          onChange={setSelectedOption}
+          selectedOption={selectedOption}
+        />
+      </div>
+      <button className="w-full py-3 rounded-full bg-primary text-black font-semibold flex justify-center items-center gap-2 mt-4">
+        Wyślij
+      </button>
     </div>
   );
 }
