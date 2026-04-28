@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
-        className={`${interSans.variable} antialiased w-svw min-h-svh bg-lightGray overflow-y-scroll`}
+        className={`${interSans.variable} antialiased min-h-screen bg-lightGray overflow-y-auto overflow-x-hidden`}
       >
         {children}
       </body>

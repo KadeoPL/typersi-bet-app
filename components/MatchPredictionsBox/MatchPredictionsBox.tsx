@@ -12,8 +12,8 @@ export default function MatchPredictionsBox() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   return (
-    <div className="bg-black w-full rounded-2xl flex flex-col items-center p-4 mt-6">
-      <div className="bg-primary text-black font-semibold uppercase px-4 py-2 rounded-full text-xs my-4">
+    <div className="bg-black w-full rounded-2xl flex flex-col items-center p-8 mt-6">
+      <div className="bg-primary text-black font-semibold uppercase px-4 py-2 rounded-full text-xs mb-4">
         Grupa A
       </div>
       <div className="flex gap-8">
@@ -26,7 +26,7 @@ export default function MatchPredictionsBox() {
         </div>
         <TeamBox name="Polska" flag="" />
       </div>
-      <div className="flex gap-6 my-4 justify-center items-center">
+      <div className="flex gap-6 my-7 justify-center items-center">
         <PredictionsGoalInput goals={homeGoals} onChange={setHomeGoals} />
         <div className="text-2xl text-lightGray text-center">:</div>
         <PredictionsGoalInput goals={awayGoals} onChange={setAwayGoals} />
@@ -37,7 +37,7 @@ export default function MatchPredictionsBox() {
           selectedOption={selectedOption}
         />
       </div>
-      <button className="w-full py-3 rounded-full bg-primary text-black font-semibold flex justify-center items-center gap-2 mt-4">
+      <button className="w-full py-3 rounded-full bg-primary text-black font-semibold flex justify-center items-center gap-2 mt-7">
         Wyślij
       </button>
     </div>
