@@ -7,7 +7,8 @@ export default function Page() {
     <main className="mb-20">
       <Avatar />
       <NoMatchesInfo />
-      <MatchPredictionsBox />
+      <MatchPredictionsBox isMatchStart={false} />
+      <MatchPredictionsBox isMatchStart={true} />
     </main>
   );
 }
