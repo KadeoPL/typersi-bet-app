@@ -1,14 +1,19 @@
 "use client";
 
-import { createUser } from "./actions";
+import { registerUser } from "@/app/lib/api/auth";
 
 export default function AddUser() {
   const handleClick = async () => {
-    const res = await createUser();
-    if (res.success) {
-      console.log("User dodany");
-    } else {
-      console.error(res.message);
+    try {
+      const user = await registerUser({
+        username: "Krzysiek",
+        password: "Testowy",
+      });
+
+      console.log(user);
+      alert("Użytkownik utworzony");
+    } catch (error) {
+      console.error(error);
     }
   };
 
