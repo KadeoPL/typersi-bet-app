@@ -10,7 +10,7 @@ type Props = {
 export default function Button({ text, onClick, type, state }: Props) {
   return (
     <button
-      className="px-4 py-3 rounded-full bg-white font-semibold flex justify-center items-center gap-2"
+      className="px-4 py-3 rounded-full bg-black text-white font-semibold flex justify-center items-center gap-2"
       onClick={onClick}
       type={type ? type : "button"}
     >

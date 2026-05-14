@@ -1,13 +1,4 @@
-export type userType = {
-  email: string;
-  password: string;
-  name?: string;
-  role: "user" | "admin";
-  isPasswordChange: boolean;
-  username: string;
-};
+import { z } from "zod";
+import { registerSchema } from "../schema/user";
 
-export type userSignInType = {
-  username: string;
-  password: string;
-};
+export type UserRegisterSchema = z.infer<typeof registerSchema>;

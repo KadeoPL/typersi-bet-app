@@ -5,7 +5,6 @@ import { Input } from "@/components/Input";
 import Button from "../Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { authClient } from "@/utils/auth-client";
 import { useRouter } from "next/navigation";
 
 export const loginSchema = z.object({
@@ -36,11 +35,6 @@ export default function LoginForm() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setButtonState("loading");
-      await authClient.signIn.username({
-        username: data.username,
-        password: data.password,
-        callbackURL: "/",
-      });
       setButtonState("normal");
       router.push("/");
     } catch (err) {
