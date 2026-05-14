@@ -6,27 +6,17 @@ import Button from "../Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-export const loginSchema = z.object({
-  username: z
-    .string()
-    .nonempty("Nazwa użytkownika jest wymagana")
-    .min(3, "Zbyt krótka nazwa użytkownika"),
-
-  password: z
-    .string()
-    .nonempty("Hasło jest wymagane")
-    .min(8, "Minimalna długość hasła to 8 znaków"),
-});
+import { registerSchema } from "@/utils/schema/user";
+import { loginUser } from "@/app/lib/api/auth";
 
 export default function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(loginSchema) });
+  } = useForm({ resolver: zodResolver(registerSchema) });
 
-  const [resError, setResError] = useState<string | undefined>("");
+  const [resError, setResError] = useState<string>("");
   const router = useRouter();
   const [buttonState, setButtonState] = useState<"loading" | "normal">(
     "normal",
@@ -35,11 +25,18 @@ export default function LoginForm() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setButtonState("loading");
-      setButtonState("normal");
+
+      const user = await loginUser({
+        username: data.username,
+        password: data.password,
+      });
       router.push("/");
+
+      setButtonState("normal");
     } catch (err) {
       setButtonState("normal");
-      setResError("Nieprawidłowy login lub hasło");
+      const message = err instanceof Error ? err.message : String(err);
+      setResError(message);
     }
   });
 
