@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const res = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -14,10 +14,10 @@ export async function POST(req: Request) {
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    const data = await res.json();
 
     return NextResponse.json(data, {
-      status: response.status,
+      status: res.status,
     });
   } catch (error) {
     return NextResponse.json({ message: "Server error" }, { status: 500 });
