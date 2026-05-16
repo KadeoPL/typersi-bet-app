@@ -1,6 +1,7 @@
 "use client";
 
 import Avatar from "@/components/avatar/Avatar";
+import { logout } from "@/utils/logout";
 import Link from "next/link";
 
 export default function page() {
@@ -15,7 +16,7 @@ export default function page() {
           <ul className="flex flex-col gap-3 text-black ml-3">
             <li>Wybierz zdjęcie profilowe</li>
             <li>Zmień hasło</li>
-            <li>Wyloguj</li>
+            <li onClick={logout}>Wyloguj</li>
           </ul>
         </div>
         <div>
