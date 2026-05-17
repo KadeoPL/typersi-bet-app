@@ -1,7 +1,7 @@
 "use client";
 
 import SingleIcon from "./SingleIcon";
-import { navItems } from "@/utils/navItems";
+import { navItems } from "@/utils/navigation-items/navItems";
 
 export default function BottomNavbar() {
   return (

@@ -41,8 +41,6 @@ export async function POST(req: Request) {
       status: response.status,
     });
   } catch (error) {
-    console.log(error);
-
     return NextResponse.json(
       {
         message: "Server error",

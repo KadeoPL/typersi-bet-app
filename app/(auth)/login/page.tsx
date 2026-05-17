@@ -2,8 +2,14 @@ import LoginBG from "@/public/login_bg.jpg";
 import TypersiLogo from "@/public/typersi_logo_black.png";
 import Image from "next/image";
 import LoginForm from "@/components/login/LoginForm";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function page() {
+export default async function page() {
+  const token = (await cookies()).get("token")?.value;
+
+  if (token) redirect("/");
+
   return (
     <div className="h-svh bg-primary p-6 relative">
       <Image

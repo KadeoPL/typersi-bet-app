@@ -1,14 +1,30 @@
 import Avatar from "@/components/avatar/Avatar";
 import NoMatchesInfo from "@/components/NoMatchesInfo";
 import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchPredictionsBox";
+import { getMatches } from "../lib/api/getMatches";
+import { MatchType } from "@/utils/types/match";
 
 export default async function Page() {
+  const lockedMatchesData = await getMatches({
+    status: "locked",
+    limit: 10,
+    skip: 0,
+  });
+
   return (
     <main className="mb-20">
       <Avatar />
-      <NoMatchesInfo />
-      <MatchPredictionsBox isMatchStart={false} />
-      <MatchPredictionsBox isMatchStart={true} />
+      {lockedMatchesData.length === 0 ? (
+        <NoMatchesInfo />
+      ) : (
+        lockedMatchesData.map((match: MatchType, index: number) => (
+          <MatchPredictionsBox
+            isMatchStart={true}
+            matchData={match}
+            key={index}
+          />
+        ))
+      )}
     </main>
   );
 }

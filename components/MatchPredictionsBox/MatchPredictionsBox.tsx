@@ -1,43 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import TeamBox from "./TeamBox";
 import PredictionsGoalInput from "./PredictionsGoalInput";
 import PredictionsTeamRadioInput from "./PredictionsTeamRadioInput";
 import { ChevronUp } from "lucide-react";
 import MatchPredictionByUser from "./MatchPredictionByUser";
+import { MatchType } from "@/utils/types/match";
 
 type MatchPredictionsBoxType = {
   isMatchStart: boolean;
+  matchData: MatchType;
 };
 
 export default function MatchPredictionsBox({
   isMatchStart,
+  matchData,
 }: MatchPredictionsBoxType) {
   const [homeGoals, setHomeGoals] = useState<number | null>(null);
   const [awayGoals, setAwayGoals] = useState<number | null>(1);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const date = new Date(matchData.match_date);
+  const hour = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
 
   return (
     <div className="bg-black w-full rounded-2xl flex flex-col items-center px-8 pb-4 pt-8 mt-6">
       <div className="bg-primary text-black font-semibold uppercase px-4 py-2 rounded-full text-xs mb-4">
-        Grupa A
+        {matchData.stage}
       </div>
 
       <div className="flex gap-8">
-        <TeamBox name="Polska" flag="" />
+        <TeamBox
+          name={matchData.home_team.name}
+          flag={matchData.home_team.flag_src}
+        />
 
         <div className="flex flex-col items-center pt-5">
           <div className="text-primary text-sm font-bold text-center">
-            {isMatchStart ? ":" : "15:00"}
+            {isMatchStart ? ":" : `${hour}:${minutes}`}
           </div>
           <div className="text-lightGray text-sm text-center">
-            {isMatchStart ? "" : "27.04"}
+            {isMatchStart ? "" : `${day}.${month}`}
           </div>
         </div>
 
-        <TeamBox name="Polska" flag="" />
+        <TeamBox
+          name={matchData.away_team.name}
+          flag={matchData.away_team.flag_src}
+        />
       </div>
 
       {isMatchStart ? (
