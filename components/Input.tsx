@@ -22,8 +22,8 @@ export function Input({
   const baseStyles = "px-4 py-3 rounded-full";
   const variantStyles =
     variant === "black"
-      ? "bg-foreground text-white"
-      : "bg-background text-black";
+      ? "bg-background text-textPrimary"
+      : "bg-textPrimary text-background";
 
   if (type === "radio" && radioOptions) {
     return (

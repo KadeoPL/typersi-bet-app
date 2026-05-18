@@ -16,7 +16,7 @@ export default function PredictionsTeamRadioInput({
       {options.map((option) => (
         <label
           key={option}
-          className={` cursor-pointer w-12 h-12 rounded-xl border-2 transition text-xl font-bold flex items-center justify-center ${selectedOption === option ? "bg-primary text-black border-primary" : "bg-none text-textMuted border-borderLight"}`}
+          className={` cursor-pointer w-16 h-10 rounded-lg border-[1px] transition text-xl  flex items-center justify-center ${selectedOption === option ? "bg-primary text-black border-primary" : "bg-surface text-textMuted border-borderLight"}`}
         >
           <input
             type="radio"

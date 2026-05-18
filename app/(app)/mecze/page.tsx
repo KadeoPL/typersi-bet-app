@@ -73,8 +73,8 @@ export default function page() {
       </div>
 
       {isLoading && (
-        <div className="mt-4 flex gap-2">
-          <LoaderCircle className="animate-spin" /> Ładowanie
+        <div className="mt-4 flex gap-2 text-textSecondary">
+          <LoaderCircle className="animate-spin text-textSecondary" /> Ładowanie
         </div>
       )}
 
@@ -83,21 +83,16 @@ export default function page() {
       )}
 
       <div className="mb-16">
-        {matchesData.map((match) => (
-          <MatchPredictionsBox
-            key={match.id}
-            matchData={match}
-            isMatchStart={
-              match.status === "locked" || match.status === "finished"
-            }
-          />
-        ))}
+        {!isLoading &&
+          matchesData.map((match) => (
+            <MatchPredictionsBox key={match.id} matchData={match} />
+          ))}
         {!isLoading && matchesData.length > 0 && (
           <div
             onClick={() => {
               setSkip(skip + 10);
             }}
-            className="mt-4 text-center text-darkGray cursor-pointer text-sm"
+            className="mt-4 text-center text-textSecondary cursor-pointer text-sm"
           >
             Pokaż więcej
           </div>
