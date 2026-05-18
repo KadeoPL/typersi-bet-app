@@ -7,17 +7,21 @@ export const navItems = [
   {
     path: "/",
     icon: HomeIcon,
+    text: "Home",
   },
   {
     path: "/mecze",
     icon: MatchesIcon,
+    text: "Mecze",
   },
   {
     path: "/wyniki",
     icon: LeaderboardIcon,
+    text: "Wyniki",
   },
   {
     path: "/ustawienia",
     icon: UserIcon,
+    text: "Profil",
   },
 ];

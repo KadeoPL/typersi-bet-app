@@ -7,7 +7,7 @@ export default function settingsLayout({
 }>) {
   return (
     <div>
-      <h1 className="text-xl font-semibold mb-10">Ustawienia</h1>
+      <h1 className="text-2xl font-bold mb-10 text-textPrimary">Ustawienia</h1>
       {children}
     </div>
   );

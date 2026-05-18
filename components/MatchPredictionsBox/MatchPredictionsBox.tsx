@@ -25,11 +25,11 @@ export default function MatchPredictionsBox({
   const hour = date.getHours();
   const minutes = date.getMinutes().toString().padStart(2, "0");
   const day = date.getDate();
-  const month = date.getMonth() + 1;
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
 
   return (
-    <div className="bg-black w-full rounded-2xl flex flex-col items-center px-8 pb-4 pt-8 mt-6">
-      <div className="bg-primary text-black font-semibold uppercase px-4 py-2 rounded-full text-xs mb-4">
+    <div className="bg-secondary w-full rounded-2xl flex flex-col items-center px-8 pb-4 pt-8 mt-6">
+      <div className="bg-primary text-background font-semibold uppercase px-4 py-2 rounded-full text-xs mb-4">
         {matchData.stage}
       </div>
 
@@ -40,10 +40,10 @@ export default function MatchPredictionsBox({
         />
 
         <div className="flex flex-col items-center pt-5">
-          <div className="text-primary text-sm font-bold text-center">
+          <div className="text-primary text-xl font-bold text-center">
             {isMatchStart ? ":" : `${hour}:${minutes}`}
           </div>
-          <div className="text-lightGray text-sm text-center">
+          <div className="text-textSecondary text-sm text-center">
             {isMatchStart ? "" : `${day}.${month}`}
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function MatchPredictionsBox({
       {isMatchStart ? (
         <div className="flex flex-col w-full">
           <h1
-            className={`text-sm font-semibold text-lightGray mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+            className={`text-sm font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
           >
             Zobacz jak typowali inni
           </h1>

@@ -6,9 +6,10 @@ import { usePathname } from "next/navigation";
 type IconProps = {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   path: string;
+  text: string;
 };
 
-export default function SingleIcon({ Icon, path }: IconProps) {
+export default function SingleIcon({ Icon, path, text }: IconProps) {
   const pathname = usePathname();
 
   const isActive = pathname === path;
@@ -17,8 +18,13 @@ export default function SingleIcon({ Icon, path }: IconProps) {
     <div className="cursor-pointer group">
       <Link href={path}>
         <Icon
-          className={`w-7 h-7  ${isActive ? "text-primary" : "text-darkGray"} group-hover:text-background `}
+          className={`w-7 h-7 mx-auto ${isActive ? "text-primary" : "text-textSecondary"} `}
         />
+        <div
+          className={`text-xs mt-2 ${isActive ? "text-primary" : "text-textSecondary"}`}
+        >
+          {text}
+        </div>
       </Link>
     </div>
   );

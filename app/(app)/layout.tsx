@@ -17,7 +17,7 @@ export default async function AppLayout({
   return (
     <div>
       <AuthProvider user={user}>
-        <div className="p-8">{children}</div>
+        <div className="p-4">{children}</div>
         <BottomNavbar />
       </AuthProvider>
     </div>
