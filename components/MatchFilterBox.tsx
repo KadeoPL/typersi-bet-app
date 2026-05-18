@@ -11,7 +11,7 @@ export default function MatchFilterBox({
 }: MatchFilterType) {
   return (
     <div
-      className={`text-xs px-3 py-2 rounded-full cursor-pointer ${isActive ? "bg-primary" : "bg-background"} ${isActive ? "font-bold" : "font-semibold"} transition-all ease-in-out duration-150`}
+      className={`text-xs px-3 py-2 rounded-full cursor-pointer border-[1px] border-border ${isActive ? "bg-primary" : "bg-secondary"} ${isActive ? "text-background" : "text-textSecondary"} transition-all ease-in-out duration-150`}
       onClick={onClick}
     >
       {text}

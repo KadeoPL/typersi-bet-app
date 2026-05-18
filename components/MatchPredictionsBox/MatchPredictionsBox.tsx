@@ -4,7 +4,7 @@ import { useState } from "react";
 import TeamBox from "./TeamBox";
 import PredictionsGoalInput from "./PredictionsGoalInput";
 import PredictionsTeamRadioInput from "./PredictionsTeamRadioInput";
-import { ChevronUp } from "lucide-react";
+import { ChevronUp, Send } from "lucide-react";
 import MatchPredictionByUser from "./MatchPredictionByUser";
 import { MatchType } from "@/utils/types/match";
 
@@ -58,6 +58,9 @@ export default function MatchPredictionsBox({
         <div className="flex flex-col w-full">
           <h1
             className={`text-sm font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
           >
             Zobacz jak typowali inni
           </h1>
@@ -102,7 +105,7 @@ export default function MatchPredictionsBox({
             <div className="flex gap-6 justify-center items-center">
               <PredictionsGoalInput goals={homeGoals} onChange={setHomeGoals} />
 
-              <div className="text-2xl text-lightGray text-center">:</div>
+              <div className="text-2xl text-textPrimary text-center">:</div>
 
               <PredictionsGoalInput goals={awayGoals} onChange={setAwayGoals} />
             </div>
@@ -115,7 +118,7 @@ export default function MatchPredictionsBox({
             </div>
 
             <button className="w-full py-3 rounded-full bg-primary text-black font-semibold flex justify-center items-center gap-2 mt-4">
-              Wyślij
+              <Send size={20} /> Wyślij
             </button>
           </div>
         </>

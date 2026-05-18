@@ -15,16 +15,24 @@ export default function SingleIcon({ Icon, path, text }: IconProps) {
   const isActive = pathname === path;
 
   return (
-    <div className="cursor-pointer group">
-      <Link href={path}>
+    <div className="cursor-pointer w-full">
+      <Link
+        href={path}
+        className="flex flex-col items-center justify-center gap-1 w-full"
+      >
         <Icon
-          className={`w-7 h-7 mx-auto ${isActive ? "text-primary" : "text-textSecondary"} `}
+          className={`w-7 h-7 ${
+            isActive ? "text-primary" : "text-textSecondary"
+          }`}
         />
-        <div
-          className={`text-xs mt-2 ${isActive ? "text-primary" : "text-textSecondary"}`}
+
+        <span
+          className={`text-xs w-full text-center ${
+            isActive ? "text-primary" : "text-textSecondary"
+          }`}
         >
           {text}
-        </div>
+        </span>
       </Link>
     </div>
   );

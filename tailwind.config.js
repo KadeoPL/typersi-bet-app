@@ -20,6 +20,9 @@ module.exports = {
         success: "#22C55E",
         warning: "#FACC15",
         danger: "#EF4444",
+
+        border: "#FFFFFF14",
+        borderLight: "#FFFFFF1F",
       },
     },
   },

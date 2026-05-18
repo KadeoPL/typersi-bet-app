@@ -45,7 +45,6 @@ export default function page() {
 
   return (
     <div>
-      <h1 className="mb-4">Mecze</h1>
       <div className="flex justify-start gap-3">
         <MatchFilterBox
           text="Zaplanowane"
