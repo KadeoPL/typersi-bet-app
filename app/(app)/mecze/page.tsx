@@ -1,33 +1,108 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchPredictionsBox";
 import MatchFilterBox from "@/components/MatchFilterBox";
+import { MatchType } from "@/utils/types/match";
+import { LoaderCircle } from "lucide-react";
 
 export default function page() {
   const [selectedMatchStatus, setSelectedMatchStatus] = useState<
-    "Zaplanowane" | "W trakcie" | "Zakończone"
-  >("Zaplanowane");
+    "scheduled" | "locked" | "finished"
+  >("scheduled");
+
+  const [matchesData, setMatchesData] = useState<MatchType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [skip, setSkip] = useState(0);
+  const limit = 10;
+
+  async function loadMatches(status: string, limit: number, skip: number) {
+    try {
+      setIsLoading(true);
+
+      const res = await fetch(
+        `/api/matches?status=${status}&limit=${limit}&skip=${skip}`,
+      );
+
+      const data = await res.json();
+      console.log(data);
+
+      if (!res.ok) {
+        throw new Error(data.detail);
+      }
+
+      setMatchesData((prev) => (skip === 0 ? data : [...prev, ...data]));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadMatches(selectedMatchStatus, limit, skip);
+  }, [selectedMatchStatus, skip]);
 
   return (
     <div>
-      <h1>Mecze</h1>
+      <h1 className="mb-4">Mecze</h1>
       <div className="flex justify-start gap-3">
         <MatchFilterBox
           text="Zaplanowane"
-          isActive={selectedMatchStatus === "Zaplanowane"}
-          onClick={() => setSelectedMatchStatus("Zaplanowane")}
+          isActive={selectedMatchStatus === "scheduled"}
+          onClick={() => {
+            setSelectedMatchStatus("scheduled");
+            setSkip(0);
+          }}
         />
         <MatchFilterBox
           text="W trakcie"
-          isActive={selectedMatchStatus === "W trakcie"}
-          onClick={() => setSelectedMatchStatus("W trakcie")}
+          isActive={selectedMatchStatus === "locked"}
+          onClick={() => {
+            setSelectedMatchStatus("locked");
+            setSkip(0);
+          }}
         />
         <MatchFilterBox
           text="Zakończone"
-          isActive={selectedMatchStatus === "Zakończone"}
-          onClick={() => setSelectedMatchStatus("Zakończone")}
+          isActive={selectedMatchStatus === "finished"}
+          onClick={() => {
+            setSelectedMatchStatus("finished");
+            setSkip(0);
+          }}
         />
+      </div>
+
+      {isLoading && (
+        <div className="mt-4 flex gap-2">
+          <LoaderCircle className="animate-spin" /> Ładowanie
+        </div>
+      )}
+
+      {!isLoading && matchesData.length === 0 && (
+        <div className="mt-4">Brak meczy do wyświetlenia</div>
+      )}
+
+      <div className="mb-16">
+        {matchesData.map((match) => (
+          <MatchPredictionsBox
+            key={match.id}
+            matchData={match}
+            isMatchStart={
+              match.status === "locked" || match.status === "finished"
+            }
+          />
+        ))}
+        {!isLoading && matchesData.length > 0 && (
+          <div
+            onClick={() => {
+              setSkip(skip + 10);
+            }}
+            className="mt-4 text-center text-darkGray cursor-pointer text-sm"
+          >
+            Pokaż więcej
+          </div>
+        )}
       </div>
     </div>
   );

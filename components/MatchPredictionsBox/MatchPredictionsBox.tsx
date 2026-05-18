@@ -33,7 +33,7 @@ export default function MatchPredictionsBox({
         {matchData.stage}
       </div>
 
-      <div className="flex gap-8">
+      <div className="flex justify-between w-full">
         <TeamBox
           name={matchData.home_team.name}
           flag={matchData.home_team.flag_src}

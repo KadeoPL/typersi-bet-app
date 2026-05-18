@@ -1,5 +1,3 @@
-import React from "react";
-
 type MatchPredictionByUserType = {
   name: string;
   team: string;
