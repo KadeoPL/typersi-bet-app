@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-export const interSans = Inter({
+const interSans = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
