@@ -18,11 +18,7 @@ export default async function Page() {
         <NoMatchesInfo />
       ) : (
         lockedMatchesData.map((match: MatchType, index: number) => (
-          <MatchPredictionsBox
-            isMatchStart={true}
-            matchData={match}
-            key={index}
-          />
+          <MatchPredictionsBox matchData={match} key={index} />
         ))
       )}
     </main>
