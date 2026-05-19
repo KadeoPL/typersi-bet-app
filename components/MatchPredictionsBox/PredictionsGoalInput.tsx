@@ -10,7 +10,7 @@ export default function PredictionsGoalInput({
   return (
     <input
       type="text"
-      value={goals === null ? "0" : goals}
+      value={goals === null ? "-" : goals}
       maxLength={2}
       onChange={(e) => {
         const value = e.target.value.replace(/\D/g, "");

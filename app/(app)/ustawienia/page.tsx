@@ -21,7 +21,10 @@ export default function page() {
           </h3>
           <ul className="flex flex-col gap-3 text-textPrimary ">
             {settingsUserItems.map((item, index) => (
-              <li key={index} className="bg-secondary p-4 text-base rounded-lg">
+              <li
+                key={index}
+                className="bg-secondary p-4 text-base rounded-lg flex gap-2 items-center"
+              >
                 <Link href={item.url}>{item.text}</Link>
               </li>
             ))}

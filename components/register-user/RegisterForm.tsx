@@ -39,12 +39,12 @@ export default function RegisterForm() {
   });
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-3">
+    <form onSubmit={onSubmit} className="flex flex-col gap-6">
       <Input
         {...register("username")}
         placeholder="Wpisz nazwę użytkownika"
         error={errors.username?.message as string}
-        variant="black"
+        variant="default"
         onClick={() => setResError("")}
       />
 
@@ -53,7 +53,7 @@ export default function RegisterForm() {
         placeholder="Wpisz hasło dla użytkownika"
         error={errors.password?.message as string}
         type="password"
-        variant="black"
+        variant="default"
         onClick={() => setResError("")}
       />
       <Button text="Dodaj użytkownika" type="submit" state={buttonState} />
