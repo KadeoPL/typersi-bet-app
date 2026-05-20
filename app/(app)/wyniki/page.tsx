@@ -28,5 +28,13 @@ export default function Wyniki() {
     console.log(users);
   }, []);
 
-  return <div>Wyniki</div>;
+  return (
+    <div>
+      {users.map((user, index) => (
+        <div key={index} className="text-textPrimary">
+          {user.username}
+        </div>
+      ))}
+    </div>
+  );
 }
