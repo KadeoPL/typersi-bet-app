@@ -11,3 +11,9 @@ export type User = {
   exact_bets: number;
   must_change_password: boolean;
 };
+
+export type UserRoleEditType = {
+  id: number;
+  username: string;
+  role: "admin" | "player";
+};

@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export async function GET() {
   const token = (await cookies()).get("token")?.value;
 
-  const res = await fetch(`${API_URL}/users/leaderboard`, {
+  const res = await fetch(`${API_URL}/users`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

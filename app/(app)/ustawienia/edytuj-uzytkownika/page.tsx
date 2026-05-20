@@ -53,7 +53,9 @@ export default function Page() {
             >
               <div>
                 <div className="text-sm font-bold"> {user.username}</div>
-                <div className="text-sm text-textSecondary">Administrator</div>
+                <div className="text-sm text-textSecondary">
+                  {user.role === "admin" ? "Administrator" : "Użytkownik"}
+                </div>
               </div>
               <div
                 onClick={() => {
@@ -69,8 +71,11 @@ export default function Page() {
           ))}
         </div>
       )}
-      {isModalOpen && (
-        <UserEditModal closeModal={() => setIsModalOpen(false)} />
+      {isModalOpen && userToEdit && (
+        <UserEditModal
+          user={userToEdit}
+          closeModal={() => setIsModalOpen(false)}
+        />
       )}
     </div>
   );
