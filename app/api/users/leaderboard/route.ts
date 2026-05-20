@@ -2,20 +2,18 @@ import { cookies } from "next/headers";
 
 const API_URL = process.env.API_URL;
 
-export async function getMe() {
+export async function GET() {
   const token = (await cookies()).get("token")?.value;
 
-  const res = await fetch(`${API_URL}/auth/me`, {
+  const res = await fetch(`${API_URL}/users/leaderboard`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-
-    cache: "no-store",
   });
 
-  if (!res.ok) {
-    throw new Error("Unauthorized");
-  }
+  const data = await res.json();
 
-  return res.json();
+  return Response.json(data, {
+    status: res.status,
+  });
 }
