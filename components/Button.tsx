@@ -1,4 +1,4 @@
-import { LoaderCircle } from "lucide-react";
+import { CircleCheck, LoaderCircle } from "lucide-react";
 
 export type ButtonProps = {
   text: string;
@@ -8,25 +8,46 @@ export type ButtonProps = {
   className?: string;
 };
 
-export type ButtonState = "normal" | "loading";
+export type ButtonState = "normal" | "loading" | "success";
 
 export default function Button({
   text,
   onClick,
   type,
-  state,
+  state = "normal",
   className,
-  ...props
 }: ButtonProps) {
   return (
     <button
-      className={`px-4 py-3 rounded-full bg-primary text-background font-semibold flex justify-center items-center gap-2  ${className || ""}`}
+      className={`
+        px-4 py-3 rounded-full
+        bg-primary
+        text-background
+        font-semibold
+        flex
+        justify-center
+        items-center
+        gap-2
+        ${className || ""}
+      `}
       onClick={onClick}
-      type={type ? type : "button"}
-      {...props}
+      type={type || "button"}
     >
-      {state === "loading" ? <LoaderCircle className="animate-spin" /> : ""}
-      {state === "loading" ? "Ładowanie..." : text}
+      {state === "loading" && (
+        <>
+          <LoaderCircle className="animate-spin" />
+          Ładowanie...
+        </>
+      )}
+
+      {state === "success" && (
+        <div className="flex items-center gap-2">
+          <CircleCheck />
+          Wysłano
+        </div>
+      )}
+
+      {state === "normal" && text}
     </button>
   );
 }

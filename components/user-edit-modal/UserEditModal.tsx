@@ -1,9 +1,7 @@
 "use client";
 
-import { User, UserRoleEditType } from "@/utils/types/user";
+import { UserRoleEditType } from "@/utils/types/user";
 import UserEditForm from "./UserEditForm";
-import Button, { ButtonState } from "../Button";
-import { useState } from "react";
 
 type EditModalType = {
   closeModal: () => void;
@@ -11,10 +9,6 @@ type EditModalType = {
 };
 
 export default function UserEditModal({ closeModal, user }: EditModalType) {
-  const handleSubmit = (data: UserRoleEditType) => {
-    console.log(data);
-  };
-
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
@@ -28,7 +22,7 @@ export default function UserEditModal({ closeModal, user }: EditModalType) {
           Edycja użytkownika{" "}
           <span className="font-bold text-textPrimary">Kadeo</span>
         </div>
-        <UserEditForm user={user} onSubmit={handleSubmit} />
+        <UserEditForm user={user} />
         <button
           onClick={closeModal}
           className="w-full text-textSecondary text-sm mt-4"

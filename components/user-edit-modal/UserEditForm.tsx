@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import { UserRoleEditType } from "@/utils/types/user";
-import { useState } from "react";
 import Button, { ButtonState } from "../Button";
+import { changeRole } from "@/app/lib/api/changeRole";
+import { useState } from "react";
 
 type UserEditFormType = {
   user: UserRoleEditType;
-  onSubmit: (data: UserRoleEditType) => void;
 };
 
-export default function UserEditForm({ user, onSubmit }: UserEditFormType) {
+export default function UserEditForm({ user }: UserEditFormType) {
   const {
     register,
     handleSubmit,
@@ -18,7 +18,26 @@ export default function UserEditForm({ user, onSubmit }: UserEditFormType) {
       role: user.role,
     },
   });
+
   const [buttonState, setButtonState] = useState<ButtonState>("normal");
+
+  const onSubmit = async (data: UserRoleEditType) => {
+    try {
+      setButtonState("loading");
+
+      await changeRole(user.id, data.role);
+
+      setButtonState("success");
+
+      setTimeout(() => {
+        setButtonState("normal");
+      }, 1500);
+    } catch (err) {
+      console.error(err);
+
+      setButtonState("normal");
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
