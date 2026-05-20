@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   const limit = request.nextUrl.searchParams.get("limit");
 
   const res = await fetch(
-    `${API_URL}/matches?status=${status}&skip=${skip}&limit=${limit}`,
+    `${API_URL}/matches?status=${status}&skip=${skip}&limit=${limit}&include_bets=true`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

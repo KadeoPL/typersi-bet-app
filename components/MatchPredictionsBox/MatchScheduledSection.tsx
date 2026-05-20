@@ -1,9 +1,10 @@
 import { ChevronUp, LoaderCircle, Send } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PredictionsGoalInput from "./PredictionsGoalInput";
 import PredictionsTeamRadioInput from "./PredictionsTeamRadioInput";
 import { betMatch } from "@/app/lib/api/betMatch";
 import { MatchType } from "@/utils/types/match";
+import { patchBet } from "@/app/lib/api/patchBet";
 
 export default function MatchScheduledSection({
   matchData,
@@ -17,6 +18,7 @@ export default function MatchScheduledSection({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const hasBet = !!matchData.my_bet;
 
   const handleSubmit = async () => {
     setError("");
@@ -27,29 +29,64 @@ export default function MatchScheduledSection({
       return;
     }
 
-    try {
-      setIsLoading(true);
+    if (hasBet) {
+      try {
+        setIsLoading(true);
 
-      await betMatch({
-        matchId: matchData.id,
-        scoreHome: homeGoals,
-        scoreAway: awayGoals,
-        outcomeBet: selectedOption,
-      });
+        await patchBet({
+          betId: matchData.my_bet.id,
+          scoreHome: homeGoals,
+          scoreAway: awayGoals,
+          outcomeBet: selectedOption,
+        });
 
-      setIsSuccess(true);
+        setIsSuccess(true);
 
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 2000);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 2000);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
 
-      setError(message);
-    } finally {
-      setIsLoading(false);
+        setError(message);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      try {
+        setIsLoading(true);
+
+        await betMatch({
+          matchId: matchData.id,
+          scoreHome: homeGoals,
+          scoreAway: awayGoals,
+          outcomeBet: selectedOption,
+        });
+
+        setIsSuccess(true);
+
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 2000);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+
+        setError(message);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
+
+  useEffect(() => {
+    if (!hasBet) return;
+
+    setHomeGoals(matchData.my_bet.score_home);
+
+    setAwayGoals(matchData.my_bet.score_away);
+
+    setSelectedOption(matchData.my_bet.outcome_bet);
+  }, []);
 
   return (
     <>

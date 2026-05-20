@@ -1,3 +1,4 @@
+import { BetType } from "./bet";
 import { TeamType } from "./team";
 
 export type MatchStatus = "locked" | "scheduled" | "finished";
@@ -11,4 +12,5 @@ export type MatchType = {
   status: MatchStatus;
   home_score: number;
   away_score: number;
+  my_bet: BetType;
 };

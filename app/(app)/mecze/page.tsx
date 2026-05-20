@@ -21,7 +21,7 @@ export default function page() {
       setIsLoading(true);
 
       const res = await fetch(
-        `/api/matches?status=${status}&limit=${limit}&skip=${skip}`,
+        `/api/matches?status=${status}&limit=${limit}&skip=${skip}&include_bets=true`,
       );
 
       const data = await res.json();
@@ -79,7 +79,7 @@ export default function page() {
       )}
 
       {!isLoading && matchesData.length === 0 && (
-        <div className="mt-4">Brak meczy do wyświetlenia</div>
+        <div className="mt-4 text-textPrimary">Brak meczy do wyświetlenia</div>
       )}
 
       <div className="mb-16">
