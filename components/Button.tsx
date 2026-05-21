@@ -6,6 +6,7 @@ export type ButtonProps = {
   type?: "button" | "submit" | "reset";
   state?: ButtonState;
   className?: string;
+  url?: string;
 };
 
 export type ButtonState = "normal" | "loading" | "success";
@@ -16,6 +17,7 @@ export default function Button({
   type,
   state = "normal",
   className,
+  url,
 }: ButtonProps) {
   return (
     <button

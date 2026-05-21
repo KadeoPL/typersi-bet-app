@@ -5,6 +5,7 @@ import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchPredictio
 import MatchFilterBox from "@/components/MatchFilterBox";
 import { MatchType } from "@/utils/types/match";
 import { LoaderCircle } from "lucide-react";
+import Loader from "@/components/Loader";
 
 export default function page() {
   const [selectedMatchStatus, setSelectedMatchStatus] = useState<
@@ -72,11 +73,7 @@ export default function page() {
         />
       </div>
 
-      {isLoading && (
-        <div className="mt-4 flex gap-2 text-textSecondary">
-          <LoaderCircle className="animate-spin text-textSecondary" /> Ładowanie
-        </div>
-      )}
+      {isLoading && <Loader />}
 
       {!isLoading && matchesData.length === 0 && (
         <div className="mt-4 text-textPrimary">Brak meczy do wyświetlenia</div>

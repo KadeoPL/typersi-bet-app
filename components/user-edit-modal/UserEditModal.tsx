@@ -20,7 +20,7 @@ export default function UserEditModal({ closeModal, user }: EditModalType) {
       >
         <div className="text-sm text-textSecondary mb-4">
           Edycja użytkownika{" "}
-          <span className="font-bold text-textPrimary">Kadeo</span>
+          <span className="font-bold text-textPrimary">{user.username}</span>
         </div>
         <UserEditForm user={user} />
         <button
