@@ -1,7 +1,9 @@
+"use client";
+
 import { ChevronUp, LoaderCircle, Send } from "lucide-react";
 import { useEffect, useState } from "react";
-import PredictionsGoalInput from "./PredictionsGoalInput";
-import PredictionsTeamRadioInput from "./PredictionsTeamRadioInput";
+import PredictionsGoalInput from "./MatchScoreInput";
+import PredictionsTeamRadioInput from "./MatchOutcomeSelect";
 import { betMatch } from "@/app/lib/api/betMatch";
 import { MatchType } from "@/utils/types/match";
 import { patchBet } from "@/app/lib/api/patchBet";

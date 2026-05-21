@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchPredictionsBox";
+import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchCard";
 import MatchFilterBox from "@/components/MatchFilterBox";
 import { MatchType } from "@/utils/types/match";
 import { LoaderCircle } from "lucide-react";

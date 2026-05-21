@@ -21,12 +21,11 @@ export default function page() {
           </h3>
           <ul className="flex flex-col gap-3 text-textPrimary ">
             {settingsUserItems.map((item, index) => (
-              <li
-                key={index}
-                className="bg-secondary p-4 text-base rounded-lg flex gap-2 items-center"
-              >
-                <Link href={item.url}>{item.text}</Link>
-              </li>
+              <Link href={item.url} key={index}>
+                <li className="bg-secondary p-4 text-base rounded-lg flex gap-2 items-center">
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -37,9 +36,11 @@ export default function page() {
           </h3>
           <ul className="flex flex-col gap-3 text-textPrimary ">
             {settingsAdminItems.map((item, index) => (
-              <li key={index} className="bg-secondary p-4 text-base rounded-lg">
-                <Link href={item.url}>{item.text}</Link>
-              </li>
+              <Link href={item.url} key={index}>
+                <li className="bg-secondary p-4 text-base rounded-lg">
+                  {item.text}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>

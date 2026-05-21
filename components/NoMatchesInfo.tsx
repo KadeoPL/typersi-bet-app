@@ -1,25 +1,33 @@
 import Image from "next/image";
 import NoMatchesImage from "@/public/no-matches-img.png";
-import MainButton from "./MainButton";
+import ButtonUrl from "./ButtonUrl";
 
 export default function NoMatchesInfo() {
   return (
-    <div className="w-full px-8 text-center flex-col justify-center">
-      <div className="w-full">
+    <div className="w-full  text-center flex-col justify-center items-center">
+      <div className="relative w-full mx-auto">
         <Image
           src={NoMatchesImage}
-          width={280}
-          height={280}
-          alt="Brak meczy, grafika piłki"
-          className="h-auto w-[280px] mx-auto"
+          alt="Brak meczy"
+          className="
+    w-full
+    max-w-[280px]
+    h-auto
+    mx-auto
+  "
         />
       </div>
-      <div className="w-full mt-8 mb-12">
-        <h1 className="font-semibold text-xl">Brak aktualnych meczów</h1>
-        <p>Obecnie brak rozgrywek</p>
+      <div className="w-full mt-8 mb-12 px-4">
+        <h1 className="font-semibold text-xl text-textPrimary">
+          Brak meczów na żywo.
+        </h1>
+        <p className="text-sm text-textSecondary">
+          Obecnie nie toczą się żadne rozgrywki. Sprawdź terminarz i zobacz
+          nadchodzące spotkania.
+        </p>
       </div>
-      <div>
-        <MainButton text="Sprawdź terminarz" url="/mecze" />
+      <div className="px-4">
+        <ButtonUrl text="Sprawdź terminarz" url="/mecze" />
       </div>
     </div>
   );

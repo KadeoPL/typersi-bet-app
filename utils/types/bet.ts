@@ -7,4 +7,5 @@ export type BetType = {
   score_home: number;
   score_points: number;
   total_points: number;
+  username: string;
 };

@@ -2,15 +2,13 @@ import { registerSchema } from "@/utils/schema/user";
 import { UserRegisterSchema } from "@/utils/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import Button from "../Button";
+import Button, { ButtonState } from "../Button";
 import { useState } from "react";
 import { Input } from "../Input";
 import { registerUser } from "@/app/lib/api/auth";
 
 export default function RegisterForm() {
-  const [buttonState, setButtonState] = useState<"loading" | "normal">(
-    "normal",
-  );
+  const [buttonState, setButtonState] = useState<ButtonState>("normal");
   const [resError, setResError] = useState<string>("");
 
   const {
@@ -30,7 +28,11 @@ export default function RegisterForm() {
         password: data.password,
       });
 
-      setButtonState("normal");
+      setButtonState("success");
+
+      setTimeout(() => {
+        setButtonState("normal");
+      }, 1500);
     } catch (err) {
       setButtonState("normal");
       const message = err instanceof Error ? err.message : String(err);

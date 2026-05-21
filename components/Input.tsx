@@ -23,7 +23,7 @@ export function Input({
   const variantStyles =
     variant === "black"
       ? "bg-background text-textPrimary"
-      : "bg-surface border-[1px] border-border text-background";
+      : "bg-surface border-[1px] border-border text-textPrimary";
 
   if (type === "radio" && radioOptions) {
     return (

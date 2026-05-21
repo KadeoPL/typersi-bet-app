@@ -1,8 +1,11 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 const API_URL = process.env.API_URL;
 
 export async function POST(req: Request) {
+  const token = (await cookies()).get("token")?.value;
+
   try {
     const body = await req.json();
 
@@ -10,6 +13,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
