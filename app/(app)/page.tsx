@@ -14,14 +14,13 @@ export default async function Page() {
   return (
     <main className="mb-20 ">
       <Avatar />
-      {/* {lockedMatchesData.length === 0 ? (
+      {lockedMatchesData.length === 0 ? (
         <NoMatchesInfo />
       ) : (
         lockedMatchesData.map((match: MatchType, index: number) => (
           <MatchPredictionsBox matchData={match} key={index} />
         ))
-      )} */}
-      <NoMatchesInfo />
+      )}
     </main>
   );
 }

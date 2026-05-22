@@ -7,6 +7,7 @@ import PredictionsTeamRadioInput from "./MatchOutcomeSelect";
 import { betMatch } from "@/app/lib/api/betMatch";
 import { MatchType } from "@/utils/types/match";
 import { patchBet } from "@/app/lib/api/patchBet";
+import { useRouter } from "next/navigation";
 
 export default function MatchScheduledSection({
   matchData,
@@ -20,7 +21,8 @@ export default function MatchScheduledSection({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const hasBet = !!matchData.my_bet;
+  const [betData, setBetData] = useState(matchData.my_bet);
+  const hasBet = !!betData;
 
   const handleSubmit = async () => {
     setError("");
@@ -36,7 +38,7 @@ export default function MatchScheduledSection({
         setIsLoading(true);
 
         await patchBet({
-          betId: matchData.my_bet.id,
+          betId: betData.id,
           scoreHome: homeGoals,
           scoreAway: awayGoals,
           outcomeBet: selectedOption,
@@ -58,12 +60,14 @@ export default function MatchScheduledSection({
       try {
         setIsLoading(true);
 
-        await betMatch({
+        const newBet = await betMatch({
           matchId: matchData.id,
           scoreHome: homeGoals,
           scoreAway: awayGoals,
           outcomeBet: selectedOption,
         });
+
+        setBetData(newBet);
 
         setIsSuccess(true);
 

@@ -7,7 +7,7 @@ export default function matchesLayout({
 }>) {
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4 text-textPrimary">Ustawienia</h1>
+      <h1 className="text-2xl font-bold mb-4 text-textPrimary">Mecze</h1>
       {children}
     </div>
   );

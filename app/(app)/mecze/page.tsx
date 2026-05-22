@@ -26,7 +26,6 @@ export default function page() {
       );
 
       const data = await res.json();
-      console.log(data);
 
       if (!res.ok) {
         throw new Error(data.detail);
@@ -76,7 +75,7 @@ export default function page() {
       {isLoading && <Loader />}
 
       {!isLoading && matchesData.length === 0 && (
-        <div className="mt-4 text-textPrimary">Brak meczy do wyświetlenia</div>
+        <div className="mt-4 text-textPrimary">Brak meczów do wyświetlenia</div>
       )}
 
       <div className="mb-16">

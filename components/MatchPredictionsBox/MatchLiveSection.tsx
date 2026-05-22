@@ -6,6 +6,7 @@ import { ChevronUp } from "lucide-react";
 import { MatchType } from "@/utils/types/match";
 import { getBets } from "@/app/lib/api/getBets";
 import { BetType } from "@/utils/types/bet";
+import { getOutcomeBet } from "@/app/lib/getOutcomeBet";
 
 export default function MatchStartSection({
   matchData,
@@ -13,22 +14,16 @@ export default function MatchStartSection({
   matchData: MatchType;
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const outcomeBet =
-    matchData.my_bet?.outcome_bet === "1"
-      ? matchData.home_team.name
-      : matchData.my_bet?.outcome_bet === "2"
-        ? matchData.away_team.name
-        : matchData.my_bet?.outcome_bet === "X"
-          ? "Remis"
-          : "Brak typu";
-
   const [betsData, setBetsData] = useState<BetType[]>([]);
+  const myOutcomeBet = getOutcomeBet({
+    outcome: matchData.my_bet?.outcome_bet || "",
+    homeTeamName: matchData.home_team.name,
+    awayTeamName: matchData.away_team.name,
+  });
 
   async function loadBets() {
     try {
       const data = await getBets(matchData.id);
-      console.log(data);
       setBetsData(data);
     } catch (err) {
       console.error(err);
@@ -37,7 +32,7 @@ export default function MatchStartSection({
 
   useEffect(() => {
     loadBets();
-  }, []);
+  }, [matchData.id]);
 
   return (
     <>
@@ -61,7 +56,7 @@ export default function MatchStartSection({
               Zwycięzca
             </div>
             <div className="text-primary bg-surfaceLight py-2 px-4 rounded-lg">
-              {outcomeBet}
+              {myOutcomeBet}
             </div>
           </div>
         </div>
@@ -89,7 +84,11 @@ export default function MatchStartSection({
                 username={item.username}
                 score_home={item.score_home}
                 score_away={item.score_away}
-                outcome_bet={outcomeBet}
+                outcome_bet={getOutcomeBet({
+                  outcome: item.outcome_bet,
+                  homeTeamName: matchData.home_team.name,
+                  awayTeamName: matchData.away_team.name,
+                })}
                 key={item.id}
               />
             ))}
