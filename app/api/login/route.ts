@@ -35,6 +35,11 @@ export async function POST(req: Request) {
         path: "/",
         maxAge: 60 * 60 * 24 * 30,
       });
+      cookieStore.set(
+        "mustChangePassword",
+
+        data.must_change_password ? "true" : "false",
+      );
     }
 
     return NextResponse.json(data, {
