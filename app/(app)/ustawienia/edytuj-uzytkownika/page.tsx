@@ -2,9 +2,11 @@
 
 import { getUsers } from "@/app/lib/api/getUsers";
 import UserEditModal from "@/components/user-edit-modal/UserEditModal";
+import { useAuth } from "@/utils/providers/AuthProvider";
 import { User } from "@/utils/types/user";
 
 import { LoaderCircle, Pencil } from "lucide-react";
+import { redirect } from "next/navigation";
 
 import { useEffect, useState } from "react";
 
@@ -13,6 +15,11 @@ export default function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUsers] = useState([]);
   const [userToEdit, setUserToEdit] = useState<User | null>(null);
+  const { user } = useAuth();
+
+  if (user?.role === "player") {
+    redirect("/");
+  }
 
   async function loadUsers() {
     try {
