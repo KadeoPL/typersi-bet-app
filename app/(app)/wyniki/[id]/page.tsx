@@ -1,5 +1,6 @@
 "use client";
 import { getUser } from "@/app/lib/api/getUser";
+import { getUserRank } from "@/app/lib/getUserRank";
 import Loader from "@/components/Loader";
 import { User } from "@/utils/types/user";
 import { ArrowLeft, BookCheck, TrophyIcon } from "lucide-react";
@@ -14,6 +15,7 @@ export default function UserProfile({
   const { id } = use(params);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const rank = getUserRank(user?.total_points ?? 0);
 
   async function loadUser() {
     try {
@@ -44,12 +46,17 @@ export default function UserProfile({
         </div>
       </div>
       <div className="mt-10">
-        <div className="w-32 h-32 rounded-full bg-primary mx-auto mb-4"></div>
+        <div
+          className="w-32 h-32 rounded-full bg-cover border-2 border-primary mx-auto mb-4"
+          style={{
+            backgroundImage: "url('/avatars/avatar_1.jpg')",
+          }}
+        ></div>
         <div className="text-textPrimary text-center font-bold text-3xl">
           {user?.username}
         </div>
         <div className="text-primary text-center uppercase text-xs mt-2 tracking-widest">
-          Aktywny Typer
+          {rank}
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-10">
