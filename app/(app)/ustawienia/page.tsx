@@ -16,7 +16,7 @@ export default function page() {
       <div className="mb-10">
         <Avatar />
       </div>
-      <div className="flex flex-col gap-12 p-4 text-lg">
+      <div className="flex flex-col gap-10 p-4 text-lg">
         <div>
           <h3 className="text-textSecondary mb-6 text-sm flex gap-2 items-center">
             <Settings2 className="text-primary" size={20} />
@@ -52,7 +52,7 @@ export default function page() {
 
         <div
           onClick={logout}
-          className="cursor-pointer text-danger text-base flex gap-2  items-center"
+          className="cursor-pointer text-danger text-base flex gap-2  items-center  mb-16"
         >
           <LogOut size={20} />
           Wyloguj

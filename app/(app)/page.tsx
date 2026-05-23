@@ -12,7 +12,7 @@ export default async function Page() {
   });
 
   return (
-    <main className="mb-20 ">
+    <main className="pb-20">
       <Avatar />
       {lockedMatchesData.length === 0 ? (
         <NoMatchesInfo />
