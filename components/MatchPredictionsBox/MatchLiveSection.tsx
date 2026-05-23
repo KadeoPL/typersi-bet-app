@@ -96,7 +96,7 @@ export default function MatchStartSection({
         </div>
         <ChevronUp
           className={`
-              text-white mt-4 cursor-pointer
+              text-textSecondary mt-4 cursor-pointer
               transition-transform duration-300
               ${isOpen ? "rotate-0" : "rotate-180"}
             `}
