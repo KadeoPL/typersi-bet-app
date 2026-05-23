@@ -6,8 +6,11 @@ import { settingsAdminItems } from "@/utils/navigation-items/settingsAdminItems"
 import { settingsUserItems } from "@/utils/navigation-items/settingsUserItems";
 import Link from "next/link";
 import { Settings2, LogOut, UserStar } from "lucide-react";
+import { useAuth } from "@/utils/providers/AuthProvider";
 
 export default function page() {
+  const { user } = useAuth();
+
   return (
     <div>
       <div className="mb-10">
@@ -29,21 +32,24 @@ export default function page() {
             ))}
           </ul>
         </div>
-        <div>
-          <h3 className="text-textSecondary mb-6 text-sm flex gap-2 items-center">
-            <UserStar className="text-primary" size={20} />
-            Panel admina
-          </h3>
-          <ul className="flex flex-col gap-3 text-textPrimary ">
-            {settingsAdminItems.map((item, index) => (
-              <Link href={item.url} key={index}>
-                <li className="bg-secondary p-4 text-base rounded-lg">
-                  {item.text}
-                </li>
-              </Link>
-            ))}
-          </ul>
-        </div>
+        {user?.role === "admin" && (
+          <div>
+            <h3 className="text-textSecondary mb-6 text-sm flex gap-2 items-center">
+              <UserStar className="text-primary" size={20} />
+              Panel admina
+            </h3>
+            <ul className="flex flex-col gap-3 text-textPrimary ">
+              {settingsAdminItems.map((item, index) => (
+                <Link href={item.url} key={index}>
+                  <li className="bg-secondary p-4 text-base rounded-lg">
+                    {item.text}
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div
           onClick={logout}
           className="cursor-pointer text-danger text-base flex gap-2  items-center"

@@ -7,4 +7,8 @@ export const settingsAdminItems = [
     text: "Edytuj użytkownika",
     url: "ustawienia/edytuj-uzytkownika",
   },
+  {
+    text: "Ustaw wynik meczu",
+    url: "ustawienia/ustaw-wynik-meczu",
+  },
 ];

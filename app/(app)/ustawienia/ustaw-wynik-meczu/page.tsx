@@ -1,34 +1,39 @@
 "use client";
 
-import { getUsers } from "@/app/lib/api/getUsers";
-import UserEditModal from "@/components/user-edit-modal/UserEditModal";
+import { getMatches } from "@/app/lib/api/getMatches";
+import TeamBox from "@/components/MatchPredictionsBox/MatchTeam";
 import { useAuth } from "@/utils/providers/AuthProvider";
-import { User } from "@/utils/types/user";
-
+import { MatchType } from "@/utils/types/match";
 import { LoaderCircle, Pencil } from "lucide-react";
 import { redirect } from "next/navigation";
-
 import { useEffect, useState } from "react";
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [userToEdit, setUserToEdit] = useState<User | null>(null);
+  const [matches, setMatches] = useState<MatchType[]>([]);
+  const [matchToEdit, setMatchToEdit] = useState<MatchType | null>(null);
   const { user } = useAuth();
 
   if (user?.role === "player") {
     redirect("/");
   }
 
-  async function loadUsers() {
+  async function loadMatches(status: string, limit: number, skip: number) {
     try {
       setIsLoading(true);
 
-      const data = await getUsers();
+      const res = await fetch(
+        `/api/matches?status=${status}&limit=${limit}&skip=${skip}&include_bets=true`,
+      );
+
+      const data = await res.json();
       console.log(data);
 
-      setUsers(data);
+      if (!res.ok) {
+        throw new Error(data.detail);
+      }
+      setMatches(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -37,12 +42,12 @@ export default function Page() {
   }
 
   useEffect(() => {
-    loadUsers();
-  }, [isModalOpen]);
+    loadMatches("finished", 100, 0);
+  }, []);
 
   return (
     <div>
-      <h1 className="mb-6 text-textSecondary">Edytuj użytkownika</h1>
+      <h1 className="mb-6 text-textSecondary">Ustaw wynik meczu</h1>
 
       {isLoading && (
         <div className="mt-4 flex gap-2">
@@ -53,37 +58,37 @@ export default function Page() {
 
       {!isLoading && (
         <div className="flex flex-col gap-4">
-          {users.map((user: any) => (
+          {matches.map((match: any) => (
             <div
-              key={user.id}
+              key={match.id}
               className="bg-surface text-textPrimary rounded-lg p-4 flex justify-between items-center"
             >
-              <div>
-                <div className="text-sm font-bold"> {user.username}</div>
-                <div className="text-sm text-textSecondary">
-                  {user.role === "admin" ? "Administrator" : "Użytkownik"}
-                </div>
+              <div className="flex gap-2 items-center text-sm">
+                <div>{match.home_team.name}</div>
+                <div className="text-textSecondary">:</div>
+                <div>{match.away_team.name}</div>
               </div>
+
               <div
                 onClick={() => {
                   setIsModalOpen(!isModalOpen);
-                  setUserToEdit(user);
+                  setMatchToEdit(match);
                 }}
                 className="text-primary border-[1px] border-primary rounded-md px-4 py-2 text-sm flex gap-2 items-center hover:bg-primary hover:text-background cursor-pointer"
               >
                 <Pencil size={16} />
-                Edytuj
+                Ustaw
               </div>
             </div>
           ))}
         </div>
       )}
-      {isModalOpen && userToEdit && (
+      {/* {isModalOpen && matchToEdit && (
         <UserEditModal
-          user={userToEdit}
+          user={matchToEdit}
           closeModal={() => setIsModalOpen(false)}
         />
-      )}
+      )} */}
     </div>
   );
 }
