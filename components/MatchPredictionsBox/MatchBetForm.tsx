@@ -149,6 +149,14 @@ export default function MatchScheduledSection({
           )}
         </button>
       </div>
+      <h1
+        className={`text-xs font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+      >
+        Rozwiń, aby wytypować wynik
+      </h1>
       <ChevronUp
         className={`
               text-white mt-4 cursor-pointer
