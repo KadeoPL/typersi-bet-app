@@ -7,11 +7,10 @@ import { settingsUserItems } from "@/utils/navigation-items/settingsUserItems";
 import Link from "next/link";
 import { Settings2, LogOut, UserStar } from "lucide-react";
 import { useAuth } from "@/utils/providers/AuthProvider";
-import { useTheme } from "next-themes";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 export default function page() {
   const { user } = useAuth();
-  const { theme, setTheme } = useTheme();
 
   return (
     <div className="pb-28">
@@ -31,13 +30,7 @@ export default function page() {
                   <li className="bg-secondary p-4 rounded-lg">{item.text}</li>
                 </Link>
               ) : item.action === "theme" ? (
-                <button
-                  key={index}
-                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="bg-secondary p-4 rounded-lg w-full text-left"
-                >
-                  {item.text}
-                </button>
+                <ThemeSwitch key={index} text="Zmień motyw" />
               ) : null,
             )}
           </ul>

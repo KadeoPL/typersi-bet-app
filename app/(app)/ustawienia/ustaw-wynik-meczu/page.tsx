@@ -3,6 +3,7 @@
 import { getMatches } from "@/app/lib/api/getMatches";
 import TeamBox from "@/components/MatchPredictionsBox/MatchTeam";
 import SetResultModal from "@/components/set-result-modal/SetResultModal";
+import SettingsPageHeader from "@/components/SettingsPageHeader";
 import { useAuth } from "@/utils/providers/AuthProvider";
 import { MatchType } from "@/utils/types/match";
 import { LoaderCircle, Pencil } from "lucide-react";
@@ -47,7 +48,7 @@ export default function Page() {
 
   return (
     <div>
-      <h1 className="mb-6 text-textSecondary">Ustaw wynik meczu</h1>
+      <SettingsPageHeader url="ustawienia" text="Ustaw wynik meczu" />
 
       {isLoading && (
         <div className="mt-4 flex gap-2">

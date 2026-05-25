@@ -1,7 +1,9 @@
 "use client";
 
 import RegisterForm from "@/components/register-user/RegisterForm";
+import SettingsPageHeader from "@/components/SettingsPageHeader";
 import { useAuth } from "@/utils/providers/AuthProvider";
+
 import { redirect } from "next/navigation";
 
 export default function AddUser() {
@@ -13,7 +15,7 @@ export default function AddUser() {
 
   return (
     <div>
-      <h1 className="mb-6 text-textSecondary">Dodaj użytkownika</h1>
+      <SettingsPageHeader url="ustawienia" text="Dodaj użytkownika" />
       <RegisterForm />
     </div>
   );

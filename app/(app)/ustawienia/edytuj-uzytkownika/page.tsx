@@ -1,6 +1,7 @@
 "use client";
 
 import { getUsers } from "@/app/lib/api/getUsers";
+import SettingsPageHeader from "@/components/SettingsPageHeader";
 import UserEditModal from "@/components/user-edit-modal/UserEditModal";
 import { useAuth } from "@/utils/providers/AuthProvider";
 import { User } from "@/utils/types/user";
@@ -42,7 +43,7 @@ export default function Page() {
 
   return (
     <div>
-      <h1 className="mb-6 text-textSecondary">Edytuj użytkownika</h1>
+      <SettingsPageHeader url="ustawienia" text="Edytuj użytkownika" />
 
       {isLoading && (
         <div className="mt-4 flex gap-2">

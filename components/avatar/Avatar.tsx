@@ -5,7 +5,6 @@ import Link from "next/link";
 
 export default function Avatar() {
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <div className="w-full flex gap-4 items-center mb-10 bg-secondary p-4 rounded-lg">
