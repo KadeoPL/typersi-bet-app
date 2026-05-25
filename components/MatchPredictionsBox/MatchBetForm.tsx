@@ -1,13 +1,12 @@
 "use client";
 
-import { ChevronUp, LoaderCircle, Send } from "lucide-react";
+import { ChevronUp, LoaderCircle, Pencil, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import PredictionsGoalInput from "./MatchScoreInput";
 import PredictionsTeamRadioInput from "./MatchOutcomeSelect";
 import { betMatch } from "@/app/lib/api/betMatch";
 import { MatchType } from "@/utils/types/match";
 import { patchBet } from "@/app/lib/api/patchBet";
-import { useRouter } from "next/navigation";
 
 export default function MatchScheduledSection({
   matchData,
@@ -137,7 +136,15 @@ export default function MatchScheduledSection({
             <>✓ Wysłano</>
           ) : (
             <>
-              <Send size={20} /> Wyślij
+              {hasBet ? (
+                <>
+                  <Pencil size={20} /> Edytuj
+                </>
+              ) : (
+                <>
+                  <Send size={20} /> Wyślij
+                </>
+              )}
             </>
           )}
         </button>

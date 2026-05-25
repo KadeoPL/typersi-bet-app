@@ -31,11 +31,15 @@ export default function Wyniki() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-10 text-textPrimary">Wyniki</h1>
-      <div className="w-full flex text-textSecondary text-sm bg-surface px-2 py-2 rounded-t-lg border-[1px] border-borderLight">
-        <div className="w-1/5 ">Miejsce</div>
-        <div className="w-3/5">Użytkownik</div>
-        <div className="w-1/5  border-borderLight text-right">Punkty</div>
+      <h1 className="text-2xl font-bold  text-textPrimary">Wyniki</h1>
+      <p className="text-textSecondary text-sm mb-10 mt-2">
+        Ranking typerów Mistrzostw Świata 2026
+      </p>
+      <div className="w-full flex gap-4 text-textSecondary text-sm bg-surface px-4 py-4 ">
+        <div className="w-2/12 ">Miejsce</div>
+        <div className="w-7/12">Użytkownik</div>
+        <div className="w-2/12  border-borderLight">Punkty</div>
+        <div className="w-1/12"></div>
       </div>
       {first && (
         <PlayerRow

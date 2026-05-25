@@ -7,29 +7,39 @@ import { settingsUserItems } from "@/utils/navigation-items/settingsUserItems";
 import Link from "next/link";
 import { Settings2, LogOut, UserStar } from "lucide-react";
 import { useAuth } from "@/utils/providers/AuthProvider";
+import { useTheme } from "next-themes";
 
 export default function page() {
   const { user } = useAuth();
+  const { theme, setTheme } = useTheme();
 
   return (
     <div className="pb-28">
       <div className="mb-10">
         <Avatar />
       </div>
-      <div className="flex flex-col gap-12 p-4 text-lg">
+      <div className="flex flex-col gap-10 p-4 text-lg">
         <div>
           <h3 className="text-textSecondary mb-6 text-sm flex gap-2 items-center">
             <Settings2 className="text-primary" size={20} />
             Zarządzaj
           </h3>
           <ul className="flex flex-col gap-3 text-textPrimary ">
-            {settingsUserItems.map((item, index) => (
-              <Link href={item.url} key={index}>
-                <li className="bg-secondary p-4 text-base rounded-lg flex gap-2 items-center">
+            {settingsUserItems.map((item, index) =>
+              item.url ? (
+                <Link href={item.url} key={index}>
+                  <li className="bg-secondary p-4 rounded-lg">{item.text}</li>
+                </Link>
+              ) : item.action === "theme" ? (
+                <button
+                  key={index}
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="bg-secondary p-4 rounded-lg w-full text-left"
+                >
                   {item.text}
-                </li>
-              </Link>
-            ))}
+                </button>
+              ) : null,
+            )}
           </ul>
         </div>
         {user?.role === "admin" && (
@@ -52,7 +62,7 @@ export default function page() {
 
         <div
           onClick={logout}
-          className="cursor-pointer text-danger text-base flex gap-2  items-center"
+          className="cursor-pointer text-danger text-base flex gap-2  items-center  mb-16"
         >
           <LogOut size={20} />
           Wyloguj

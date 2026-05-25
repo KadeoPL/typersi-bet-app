@@ -1,31 +1,36 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
+
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+
   theme: {
     extend: {
       colors: {
-        primary: "#E8FF00",
-        secondary: "#0E1525",
-        background: "#050B16",
-        surface: "#111827",
-        surfaceLight: "#141D33",
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        background: "var(--background)",
 
-        textPrimary: "#FFFFFF",
-        textSecondary: "#A1A8B8",
-        textMuted: "#6B7280",
+        surface: "var(--surface)",
+        surfaceLight: "var(--surfaceLight)",
 
-        success: "#22C55E",
-        warning: "#FACC15",
-        danger: "#EF4444",
+        textPrimary: "var(--textPrimary)",
+        textSecondary: "var(--textSecondary)",
+        textMuted: "var(--textMuted)",
 
-        border: "#FFFFFF14",
-        borderLight: "#FFFFFF1F",
+        success: "var(--success)",
+        warning: "var(--warning)",
+        danger: "var(--danger)",
+
+        border: "var(--border)",
+        borderLight: "var(--borderLight)",
       },
     },
   },
+
   plugins: [],
 };

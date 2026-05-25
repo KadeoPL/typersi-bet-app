@@ -1,4 +1,5 @@
-import { User } from "@/utils/types/user";
+import { getUserRank } from "@/app/lib/getUserRank";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 type PlayerRowProps = {
@@ -14,18 +15,49 @@ export default function PlayerRow({
   place,
   user_id,
 }: PlayerRowProps) {
+  const rank = getUserRank(total_points);
+  const placeColor = (place: number) => {
+    switch (place) {
+      case 1:
+        return "bg-primary text-background";
+
+      case 2:
+        return "bg-[#C7D2E5] text-background";
+
+      case 3:
+        return "bg-[#C67A3D] text-background";
+
+      default:
+        return "bg-transparent text-textSecondary";
+    }
+  };
   return (
     <div
-      className={`w-full flex text-textPrimary text-base ${place % 2 === 0 ? "bg-surface" : "bg-surfaceLight"} px-4 py-2`}
+      className={`w-full flex gap-4 text-textPrimary text-base ${place % 2 === 0 ? "bg-surface" : "bg-surfaceLight"} px-4 py-4`}
     >
-      <div className="w-1/5 ">
-        <Place place={place} />
+      <div className="w-2/12 flex items-center text-xl font-bold">
+        <div
+          className={`w-10 h-10 flex items-center justify-center rounded-full ${placeColor(place)} `}
+        >
+          {place}
+        </div>
       </div>
-      <div className="w-3/5 cursor-pointer hover:font-bold">
-        <Link href={`/wyniki/${user_id}`}>{username}</Link>
+      <div className="w-7/12 cursor-pointer hover:font-bold flex gap-2 items-center">
+        {/* <div className="w-12 h-12 bg-blue-200 rounded-full"></div> */}
+        <div>
+          <Link className="font-bold text-lg" href={`/wyniki/${user_id}`}>
+            {username}
+          </Link>
+          <div className="text-xs text-textSecondary mt-1">{rank}</div>
+        </div>
       </div>
-      <div className="w-1/5  font-bold text-right text-primary text-base">
+      <div className="w-2/12 flex items-center justify-center font-bold text-xl text-primary">
         {total_points}
+      </div>
+      <div className="w-1/12 flex items-center">
+        <Link href={`/wyniki/${user_id}`}>
+          <ChevronRight className="text-textSecondary" size={20} />
+        </Link>
       </div>
     </div>
   );
@@ -34,12 +66,28 @@ export default function PlayerRow({
 function Place({ place }: { place: number }) {
   switch (place) {
     case 1:
-      return <div className="text-yellow-300">{place}</div>;
+      return (
+        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-background">
+          {place}
+        </div>
+      );
     case 2:
-      return <div className="text-gray-300">{place}</div>;
+      return (
+        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#C7D2E5] text-background">
+          {place}
+        </div>
+      );
     case 3:
-      return <div className="text-red-950">{place}</div>;
+      return (
+        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#B56A35] text-background">
+          {place}
+        </div>
+      );
     default:
-      return place;
+      return (
+        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-background">
+          {place}
+        </div>
+      );
   }
 }
