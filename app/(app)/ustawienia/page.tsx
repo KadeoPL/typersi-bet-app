@@ -12,7 +12,7 @@ export default function page() {
   const { user } = useAuth();
 
   return (
-    <div>
+    <div className="pb-28">
       <div className="mb-10">
         <Avatar />
       </div>

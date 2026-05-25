@@ -1,4 +1,5 @@
 import { CircleCheck, LoaderCircle } from "lucide-react";
+import { error } from "next/dist/build/output/log";
 
 export type ButtonProps = {
   text: string;
@@ -9,7 +10,7 @@ export type ButtonProps = {
   url?: string;
 };
 
-export type ButtonState = "normal" | "loading" | "success";
+export type ButtonState = "normal" | "loading" | "success" | "error";
 
 export default function Button({
   text,
@@ -23,8 +24,7 @@ export default function Button({
     <button
       className={`
         px-4 py-3 rounded-full
-        bg-primary
-        text-background
+        ${state === "error" ? "bg-danger text-textPrimary" : "bg-primary text-background"}
         font-semibold
         flex
         justify-center
@@ -50,6 +50,7 @@ export default function Button({
       )}
 
       {state === "normal" && text}
+      {state === "error" && text}
     </button>
   );
 }

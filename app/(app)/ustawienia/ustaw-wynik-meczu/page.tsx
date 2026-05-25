@@ -2,6 +2,7 @@
 
 import { getMatches } from "@/app/lib/api/getMatches";
 import TeamBox from "@/components/MatchPredictionsBox/MatchTeam";
+import SetResultModal from "@/components/set-result-modal/SetResultModal";
 import { useAuth } from "@/utils/providers/AuthProvider";
 import { MatchType } from "@/utils/types/match";
 import { LoaderCircle, Pencil } from "lucide-react";
@@ -28,7 +29,6 @@ export default function Page() {
       );
 
       const data = await res.json();
-      console.log(data);
 
       if (!res.ok) {
         throw new Error(data.detail);
@@ -83,12 +83,12 @@ export default function Page() {
           ))}
         </div>
       )}
-      {/* {isModalOpen && matchToEdit && (
-        <UserEditModal
-          user={matchToEdit}
+      {isModalOpen && matchToEdit && (
+        <SetResultModal
+          match={matchToEdit}
           closeModal={() => setIsModalOpen(false)}
         />
-      )} */}
+      )}
     </div>
   );
 }
