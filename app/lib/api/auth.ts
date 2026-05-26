@@ -1,13 +1,12 @@
-export async function registerUser(data: {
-  username: string;
-  password: string;
-}) {
+export async function registerUser(data: { username: string }) {
   const res = await fetch(`/api/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      username: data.username,
+    }),
   });
 
   const responseData = await res.json();

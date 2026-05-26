@@ -5,11 +5,20 @@ export const registerSchema = z.object({
     .string()
     .min(1, "Nazwa użytkownika jest wymagana.")
     .min(3, "Minimum 3 znaki."),
+});
+
+export const loginSchema = z.object({
+  username: z
+    .string()
+    .min(1, "Nazwa użytkownika jest wymagana.")
+    .min(3, "Minimum 3 znaki."),
 
   password: z
     .string()
-    .min(1, "Hasło jest wymagane.")
-    .min(8, "Minimum 8 znaków."),
+    .min(1, "Nowe hasło jest wymagane.")
+    .min(8, "Hasło musi mieć minimum 8 znaków.")
+    .regex(/[A-Z]/, "Hasło musi zawierać wielką literę.")
+    .regex(/[0-9]/, "Hasło musi zawierać cyfrę."),
 });
 
 export const changePasswordSchema = z

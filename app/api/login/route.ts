@@ -24,6 +24,7 @@ export async function POST(req: Request) {
     });
 
     const data = await response.json();
+    console.log(data);
 
     if (data) {
       const cookieStore = await cookies();
@@ -37,7 +38,6 @@ export async function POST(req: Request) {
       });
       cookieStore.set(
         "mustChangePassword",
-
         data.must_change_password ? "true" : "false",
       );
     }

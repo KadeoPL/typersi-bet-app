@@ -6,7 +6,7 @@ import Button from "../Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { registerSchema } from "@/utils/schema/user";
+import { loginSchema } from "@/utils/schema/user";
 import { loginUser } from "@/app/lib/api/auth";
 
 export default function LoginForm() {
@@ -14,7 +14,7 @@ export default function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(registerSchema) });
+  } = useForm({ resolver: zodResolver(loginSchema) });
 
   const [resError, setResError] = useState<string>("");
   const router = useRouter();

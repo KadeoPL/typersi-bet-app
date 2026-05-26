@@ -6,10 +6,13 @@ import Button, { ButtonState } from "../Button";
 import { useState } from "react";
 import { Input } from "../Input";
 import { registerUser } from "@/app/lib/api/auth";
+import { Check, Copy } from "lucide-react";
 
 export default function RegisterForm() {
   const [buttonState, setButtonState] = useState<ButtonState>("normal");
   const [resError, setResError] = useState<string>("");
+  const [tempPassword, setTempPassword] = useState<string>("");
+  const [copied, setCopied] = useState(false);
 
   const {
     register,
@@ -25,8 +28,9 @@ export default function RegisterForm() {
 
       const user = await registerUser({
         username: data.username,
-        password: data.password,
       });
+
+      if (user) setTempPassword(user.temporary_password);
 
       setButtonState("success");
 
@@ -41,25 +45,46 @@ export default function RegisterForm() {
   });
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-6">
-      <Input
-        {...register("username")}
-        placeholder="Wpisz nazwę użytkownika"
-        error={errors.username?.message as string}
-        variant="default"
-        onClick={() => setResError("")}
-      />
+    <>
+      <form onSubmit={onSubmit} className="flex flex-col gap-6">
+        <Input
+          {...register("username")}
+          placeholder="Wpisz nazwę użytkownika"
+          error={errors.username?.message as string}
+          variant="default"
+          onClick={() => setResError("")}
+        />
 
-      <Input
-        {...register("password")}
-        placeholder="Wpisz hasło dla użytkownika"
-        error={errors.password?.message as string}
-        type="password"
-        variant="default"
-        onClick={() => setResError("")}
-      />
-      <Button text="Dodaj użytkownika" type="submit" state={buttonState} />
-      {resError && <p className="text-red-500">{resError}</p>}
-    </form>
+        <Button text="Dodaj użytkownika" type="submit" state={buttonState} />
+        {resError && <p className="text-red-500">{resError}</p>}
+      </form>
+
+      {tempPassword && (
+        <div className="mt-6 bg-secondary p-4 rounded-xl flex justify-between items-center">
+          <div>
+            <div className="text-sm text-textSecondary">Hasło tymczasowe</div>
+
+            <div className="font-bold text-xl">{tempPassword}</div>
+          </div>
+
+          <button
+            onClick={async () => {
+              await navigator.clipboard.writeText(tempPassword);
+
+              setCopied(true);
+
+              setTimeout(() => setCopied(false), 1500);
+            }}
+            className=" bg-surface p-2 rounded-lg hover:bg-surfaceLight"
+          >
+            {copied ? (
+              <Check className="text-success" />
+            ) : (
+              <Copy className="text-textSecondary" />
+            )}
+          </button>
+        </div>
+      )}
+    </>
   );
 }
