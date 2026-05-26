@@ -1,34 +1,54 @@
+import { router } from "next/client";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const API_URL = process.env.API_URL;
 
 export async function PATCH(req: Request) {
-  const token = (await cookies()).get("token")?.value;
+  try {
+    const cookieStore = await cookies();
 
-  const body = await req.json();
+    const token = cookieStore.get("token")?.value;
 
-  const res = await fetch(
-    `${API_URL}/users/me/password`,
+    const body = await req.json();
 
-    {
-      method: "PATCH",
+    const res = await fetch(
+      `${API_URL}/users/me/password`,
 
-      headers: {
-        Authorization: `Bearer ${token}`,
+      {
+        method: "PATCH",
 
-        "Content-Type": "application/json",
+        headers: {
+          Authorization: `Bearer ${token}`,
+
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          current_password: body.currentPassword,
+          new_password: body.newPassword,
+        }),
+      },
+    );
+
+    const data = await res.json();
+
+    if (res.ok) {
+      cookieStore.set("mustChangePassword", "false");
+    }
+
+    return Response.json(data, { status: res.status });
+  } catch (err) {
+    console.log(err);
+
+    return Response.json(
+      {
+        detail: String(err),
       },
 
-      body: JSON.stringify({
-        current_password: body.currentPassword,
-        new_password: body.newPassword,
-      }),
-    },
-  );
-
-  const data = await res.json();
-
-  return Response.json(data, {
-    status: res.status,
-  });
+      {
+        status: 500,
+      },
+    );
+  }
 }

@@ -20,4 +20,12 @@ export async function changePassword(data: {
       }),
     },
   );
+
+  const responseData = await res.json();
+
+  if (!res.ok) {
+    throw new Error(responseData.detail || "Błąd zmiany hasła");
+  }
+
+  return responseData;
 }

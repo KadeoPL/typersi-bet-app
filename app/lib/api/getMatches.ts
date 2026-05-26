@@ -28,9 +28,6 @@ export async function getMatches({ status, limit, skip }: GetMatchesProps) {
 
   const data = await res.json();
 
-  console.log("STATUS:", res.status);
-  console.log("DATA:", data);
-
   if (!res.ok) {
     throw new Error(data.detail || `HTTP ${res.status}`);
   }

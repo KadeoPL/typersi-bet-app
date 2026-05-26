@@ -4,11 +4,18 @@ import Image from "next/image";
 import LoginForm from "@/components/login/LoginForm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
 export default async function page() {
   const token = (await cookies()).get("token")?.value;
 
-  if (token) redirect("/");
+  const mustChange = (await cookies()).get("mustChangePassword")?.value;
+
+  if (token && mustChange === "true") {
+    redirect("/ustawienia/zmien-haslo");
+  }
+
+  if (token) {
+    redirect("/");
+  }
 
   return (
     <div className="h-svh bg-primary p-6 relative">

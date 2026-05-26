@@ -24,11 +24,9 @@ export async function POST(req: Request) {
     });
 
     const data = await response.json();
-    console.log(data);
+    const cookieStore = await cookies();
 
     if (data) {
-      const cookieStore = await cookies();
-
       cookieStore.set("token", data.access_token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -36,9 +34,30 @@ export async function POST(req: Request) {
         path: "/",
         maxAge: 60 * 60 * 24 * 30,
       });
+    }
+    const me = await fetch(
+      `${API_URL}/auth/me`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${data.access_token}`,
+        },
+      },
+    );
+
+    if (me.status === 403) {
       cookieStore.set(
         "mustChangePassword",
-        data.must_change_password ? "true" : "false",
+
+        "true",
+      );
+    } else {
+      const user = await me.json();
+
+      cookieStore.set(
+        "mustChangePassword",
+
+        user.must_change_password ? "true" : "false",
       );
     }
 

@@ -10,6 +10,7 @@ import { Input } from "./Input";
 import { changePassword } from "@/app/lib/api/changePassword";
 import { changePasswordSchema } from "@/utils/schema/user";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 type ChangePasswordForm = {
   currentPassword: string;
@@ -18,8 +19,9 @@ type ChangePasswordForm = {
 
 export default function ChangePasswordForm() {
   const [buttonState, setButtonState] = useState<ButtonState>("normal");
-
   const [resError, setResError] = useState("");
+
+  const router = useRouter();
 
   const {
     register,
@@ -42,7 +44,10 @@ export default function ChangePasswordForm() {
 
       setTimeout(() => {
         setButtonState("normal");
-      }, 1500);
+      }, 1000);
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     } catch (err) {
       setButtonState("normal");
 

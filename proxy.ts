@@ -1,16 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
-  const token = request.cookies.get("token");
+  const token = request.cookies.get("token")?.value;
 
-  const isLoginPage = request.nextUrl.pathname === "/login";
+  const mustChange = request.cookies.get("mustChangePassword")?.value;
 
-  if (isLoginPage) {
-    return NextResponse.next();
+  const pathname = request.nextUrl.pathname;
+
+  const isLogin = pathname === "/login";
+
+  const isChangePassword = pathname === "/ustawienia/zmien-haslo";
+
+  if (!token && !isLogin) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (!token) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (token && mustChange === "true" && !isChangePassword) {
+    return NextResponse.redirect(
+      new URL(
+        "/ustawienia/zmien-haslo",
+
+        request.url,
+      ),
+    );
+  }
+
+  if (token && isLogin) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();
