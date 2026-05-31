@@ -16,9 +16,7 @@ export const loginSchema = z.object({
   password: z
     .string()
     .min(1, "Nowe hasło jest wymagane.")
-    .min(8, "Hasło musi mieć minimum 8 znaków.")
-    .regex(/[A-Z]/, "Hasło musi zawierać wielką literę.")
-    .regex(/[0-9]/, "Hasło musi zawierać cyfrę."),
+    .min(8, "Hasło musi mieć minimum 8 znaków."),
 });
 
 export const changePasswordSchema = z
