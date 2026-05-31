@@ -43,7 +43,7 @@ export default function Page() {
   }
 
   useEffect(() => {
-    loadMatches("finished", 100, 0);
+    loadMatches("locked", 100, 0);
   }, []);
 
   return (
