@@ -138,7 +138,7 @@ export default function MatchScheduledSection({
             <>
               {hasBet ? (
                 <>
-                  <Pencil size={20} /> Edytuj
+                  <Pencil size={20} /> Zapisz zmiany
                 </>
               ) : (
                 <>

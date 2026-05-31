@@ -3,6 +3,7 @@ import { MatchType } from "@/utils/types/match";
 import MatchDate from "./MatchDate";
 import MatchStartSection from "./MatchLiveSection";
 import MatchScheduledSection from "./MatchBetForm";
+import { getStage } from "@/app/lib/getStage";
 
 type MatchPredictionsBoxType = {
   matchData: MatchType;
@@ -18,7 +19,13 @@ export default function MatchPredictionsBox({
   return (
     <div className="bg-secondary w-full rounded-2xl flex flex-col items-center px-4 pb-4 pt-8 mt-6">
       <div className="bg-primary text-background font-semibold uppercase px-4 py-2 rounded-full text-xs mb-4">
-        {matchData.stage}
+        {matchData.stage === "group" ? (
+          <>
+            Grupa <span className="ml-1"> {matchData.home_team.group}</span>
+          </>
+        ) : (
+          getStage(matchData.stage)
+        )}
       </div>
 
       <div className="flex justify-between w-full items-center">
