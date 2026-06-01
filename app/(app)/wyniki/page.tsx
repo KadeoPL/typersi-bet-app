@@ -30,7 +30,7 @@ export default function Wyniki() {
   }, []);
 
   return (
-    <div>
+    <div className="mb-28">
       <h1 className="text-2xl font-bold  text-textPrimary">Wyniki</h1>
       <p className="text-textSecondary text-sm mb-10 mt-2">
         Ranking typerów Mistrzostw Świata 2026
