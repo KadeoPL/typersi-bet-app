@@ -48,7 +48,7 @@ export default function PlayerRow({
           <Link className="font-bold text-lg" href={`/wyniki/${user_id}`}>
             {username}
           </Link>
-          <div className="text-xs text-textSecondary mt-1">{rank}</div>
+          <div className="text-xs text-textSecondary mt-1">{rank.name}</div>
         </div>
       </div>
       <div className="w-2/12 flex items-center justify-center font-bold text-xl text-primary">

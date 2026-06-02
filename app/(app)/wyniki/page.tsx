@@ -1,14 +1,17 @@
 "use client";
 
 import { getUsersLeaderboard } from "@/app/lib/api/getUsersLeaderboard";
+import DialogModal from "@/components/DialogModal";
 import PlayerRow from "@/components/leaderboard/PlayerRow";
 import { User } from "@/utils/types/user";
+import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Wyniki() {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [first, second, third, ...rest] = users;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   async function loadUsers() {
     try {
@@ -26,12 +29,26 @@ export default function Wyniki() {
 
   useEffect(() => {
     loadUsers();
-    console.log(users);
   }, []);
 
   return (
-    <div className="mb-28">
-      <h1 className="text-2xl font-bold  text-textPrimary">Wyniki</h1>
+    <div>
+      {isModalOpen && (
+        <DialogModal
+          closeModal={() => {
+            setIsModalOpen(!isModalOpen);
+          }}
+        />
+      )}
+
+      <div className="flex justify-between items-center text-textSecondary">
+        <h1 className="text-2xl font-bold  text-textPrimary">Wyniki</h1>
+        <Info
+          onClick={() => {
+            setIsModalOpen(!isModalOpen);
+          }}
+        />
+      </div>
       <p className="text-textSecondary text-sm mb-10 mt-2">
         Ranking typerów Mistrzostw Świata 2026
       </p>

@@ -3,9 +3,16 @@ import { getUser } from "@/app/lib/api/getUser";
 import { getUserRank } from "@/app/lib/getUserRank";
 import Loader from "@/components/Loader";
 import { User } from "@/utils/types/user";
-import { ArrowLeft, BookCheck, TrophyIcon } from "lucide-react";
+import { ArrowLeft, BookCheck, LucideIcon, TrophyIcon } from "lucide-react";
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
+
+type Rank = {
+  name: string;
+  min: number;
+  max: number;
+  icon: LucideIcon;
+};
 
 export default function UserProfile({
   params,
@@ -15,14 +22,14 @@ export default function UserProfile({
   const { id } = use(params);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const rank = getUserRank(user?.total_points ?? 0);
+  const rank: Rank = getUserRank(user?.total_points ?? 0);
+  const Icon = rank.icon;
 
   async function loadUser() {
     try {
       setIsLoading(true);
       const data = await getUser(id);
       setUser(data);
-      console.log(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -56,7 +63,7 @@ export default function UserProfile({
           {user?.username}
         </div>
         <div className="text-primary text-center uppercase text-xs mt-2 tracking-widest">
-          {rank}
+          {rank.name}
         </div>
       </div>
       <div className="flex flex-col gap-4 mt-10">
@@ -81,6 +88,35 @@ export default function UserProfile({
               {user?.exact_bets}
             </div>
           </div>
+        </div>
+      </div>
+      <div className="mt-10 px-4">
+        <div className="flex justify-between items-center">
+          <div className="flex gap-4 items-center">
+            <div className="w-14 h-14 bg-surfaceLight grid place-content-center rounded-full">
+              <Icon />
+            </div>
+            <div>
+              <div className="text-textSecondary text-sm">Obecna ranga</div>
+              <div className="font-semibold">{rank.name}</div>
+            </div>
+          </div>
+          <div>
+            <div className="text-primary font-bold">
+              {user?.total_points} / {rank.max} pkt
+            </div>
+          </div>
+        </div>
+        <div className="w-full h-4 bg-surfaceLight rounded-lg mt-4">
+          <div
+            className="h-3 bg-primary rounded-lg"
+            style={{
+              width: `${Math.min(
+                ((user?.total_points ?? 0) / rank.max) * 100,
+                100,
+              )}%`,
+            }}
+          ></div>
         </div>
       </div>
     </div>
