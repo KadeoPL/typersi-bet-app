@@ -36,7 +36,7 @@ export async function POST(req: Request, { params }: Params) {
 
   const data = await res.json();
 
-  return Response.json(data, {
+  return Response.json(data.items, {
     status: res.status,
   });
 }

@@ -32,5 +32,5 @@ export async function getMatches({ status, limit, skip }: GetMatchesProps) {
     throw new Error(data.detail || `HTTP ${res.status}`);
   }
 
-  return data;
+  return data.items;
 }
