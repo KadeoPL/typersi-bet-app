@@ -22,10 +22,16 @@ export default function MatchScheduledSection({
   const [isSuccess, setIsSuccess] = useState(false);
   const [betData, setBetData] = useState(matchData.my_bet);
   const hasBet = !!betData;
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const handleSubmit = async () => {
     setError("");
     setIsSuccess(false);
+
+    if (!isEdit) {
+      setIsEdit(true);
+      return;
+    }
 
     if (homeGoals === null || awayGoals === null || selectedOption === null) {
       setError("Pola nie mogą być puste");
@@ -44,6 +50,7 @@ export default function MatchScheduledSection({
         });
 
         setIsSuccess(true);
+        setIsEdit(false);
 
         setTimeout(() => {
           setIsSuccess(false);
@@ -103,11 +110,19 @@ export default function MatchScheduledSection({
             `}
       >
         <div className="flex gap-6 justify-center items-center">
-          <PredictionsGoalInput goals={homeGoals} onChange={setHomeGoals} />
+          <PredictionsGoalInput
+            goals={homeGoals}
+            onChange={setHomeGoals}
+            isEdit={isEdit}
+          />
 
           <div className="text-2xl text-textPrimary text-center">:</div>
 
-          <PredictionsGoalInput goals={awayGoals} onChange={setAwayGoals} />
+          <PredictionsGoalInput
+            goals={awayGoals}
+            onChange={setAwayGoals}
+            isEdit={isEdit}
+          />
         </div>
 
         <div className="mt-6">
@@ -120,6 +135,7 @@ export default function MatchScheduledSection({
           <PredictionsTeamRadioInput
             onChange={setSelectedOption}
             selectedOption={selectedOption}
+            isEdit={isEdit}
           />
         </div>
 
@@ -134,17 +150,20 @@ export default function MatchScheduledSection({
             </>
           ) : isSuccess ? (
             <>✓ Wysłano</>
+          ) : isEdit ? (
+            <>
+              <Pencil size={20} />
+              Zapisz zmiany
+            </>
+          ) : hasBet ? (
+            <>
+              <Pencil size={20} />
+              Edytuj
+            </>
           ) : (
             <>
-              {hasBet ? (
-                <>
-                  <Pencil size={20} /> Zapisz zmiany
-                </>
-              ) : (
-                <>
-                  <Send size={20} /> Wyślij
-                </>
-              )}
+              <Send size={20} />
+              Wyślij
             </>
           )}
         </button>

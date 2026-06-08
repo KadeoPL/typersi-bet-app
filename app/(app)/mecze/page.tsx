@@ -127,16 +127,19 @@ export default function page() {
           matchesData.map((match) => (
             <MatchPredictionsBox key={match.id} matchData={match} />
           ))}
-        {!isLoading && matchesData.length > 0 && totalItems >= skip && (
-          <div
-            onClick={() => {
-              setSkip(skip + 10);
-            }}
-            className="mt-4 text-center text-textSecondary cursor-pointer text-sm"
-          >
-            Pokaż więcej
-          </div>
-        )}
+        {!isLoading &&
+          matchesData.length > 0 &&
+          totalItems >= skip &&
+          totalItems > limit && (
+            <div
+              onClick={() => {
+                setSkip(skip + 10);
+              }}
+              className="mt-4 text-center text-textSecondary cursor-pointer text-sm"
+            >
+              Pokaż więcej
+            </div>
+          )}
       </div>
     </div>
   );

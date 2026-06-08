@@ -8,7 +8,7 @@ type Props = {
 
 export default function MatchFilterItem({ text, isActive, onClick }: Props) {
   return (
-    <div className="flex gap-1 items-center" onClick={onClick}>
+    <div className="flex gap-1 items-center cursor-pointer" onClick={onClick}>
       <div
         className={`w-3 h-3 rounded-full flex items-center justify-center ${isActive ? "border-primary" : "border-textSecondary"} border-[2px]`}
       >

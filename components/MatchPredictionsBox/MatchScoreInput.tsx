@@ -1,14 +1,17 @@
 type PredictionsGoalInputTypes = {
   goals: number | null;
   onChange: (value: number) => void;
+  isEdit: boolean;
 };
 
 export default function PredictionsGoalInput({
   goals,
   onChange,
+  isEdit,
 }: PredictionsGoalInputTypes) {
   return (
     <input
+      disabled={!isEdit}
       type="text"
       value={goals === null ? "-" : goals}
       maxLength={2}
@@ -19,7 +22,7 @@ export default function PredictionsGoalInput({
           onChange(Number(value));
         }
       }}
-      className={`w-20 h-14 text-center bg-surface border-[1px] border-borderLight rounded-md font-semibold text-2xl focus-visible:outline-none ${goals === null ? "text-textMuted" : "text-primary"} flex items-center justify-center`}
+      className={`w-20 h-14 text-center bg-surface border-[1px] border-borderLight rounded-md font-semibold text-2xl focus-visible:outline-none ${goals === null || !isEdit ? "text-textMuted" : "text-primary"} flex items-center justify-center`}
     />
   );
 }
