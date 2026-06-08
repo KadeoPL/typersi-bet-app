@@ -7,15 +7,22 @@ type GetMatchesProps = {
   status: MatchStatus;
   limit?: number;
   skip?: number;
+  filter?: string;
 };
 
-export async function getMatches({ status, limit, skip }: GetMatchesProps) {
+export async function getMatches({
+  status,
+  limit,
+  skip,
+  filter,
+}: GetMatchesProps) {
   const token = (await cookies()).get("token")?.value;
 
   const params = new URLSearchParams({
     status,
     limit: String(limit),
     skip: String(skip),
+    filter: String(filter),
   });
 
   const res = await fetch(`${API_URL}/matches?${params}`, {

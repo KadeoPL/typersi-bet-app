@@ -9,6 +9,7 @@ export default async function Page() {
     status: "locked",
     limit: 10,
     skip: 0,
+    filter: "all",
   });
 
   return (

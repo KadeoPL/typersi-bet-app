@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchCard";
-import MatchFilterBox from "@/components/MatchFilterBox";
+import MatchStatusBox from "@/components/MatchStatusBox";
 import { MatchType } from "@/utils/types/match";
 import { LoaderCircle } from "lucide-react";
 import Loader from "@/components/Loader";
+import MatchFilterItem from "@/components/MatchFilterItem";
 
 export default function page() {
   const [selectedMatchStatus, setSelectedMatchStatus] = useState<
@@ -13,25 +14,38 @@ export default function page() {
   >("scheduled");
 
   const [matchesData, setMatchesData] = useState<MatchType[]>([]);
+  const [activeFilter, setActiveFilter] = useState<
+    "all" | "betted" | "not_betted"
+  >("all");
   const [isLoading, setIsLoading] = useState(true);
   const [skip, setSkip] = useState(0);
   const limit = 10;
+  const [totalItems, setTotalItems] = useState<number>(0);
 
-  async function loadMatches(status: string, limit: number, skip: number) {
+  async function loadMatches(
+    status: string,
+    limit: number,
+    skip: number,
+    activeFilter: string,
+  ) {
     try {
       setIsLoading(true);
 
       const res = await fetch(
-        `/api/matches?status=${status}&limit=${limit}&skip=${skip}&include_bets=true`,
+        `/api/matches?bet_filter=${activeFilter}&status=${status}&limit=${limit}&skip=${skip}&include_bets=true`,
       );
 
       const data = await res.json();
+
+      setTotalItems(data.total);
 
       if (!res.ok) {
         throw new Error(data.detail);
       }
 
-      setMatchesData((prev) => (skip === 0 ? data : [...prev, ...data]));
+      setMatchesData((prev) =>
+        skip === 0 ? data.items : [...prev, ...data.items],
+      );
     } catch (err) {
       console.error(err);
     } finally {
@@ -40,33 +54,63 @@ export default function page() {
   }
 
   useEffect(() => {
-    loadMatches(selectedMatchStatus, limit, skip);
-  }, [selectedMatchStatus, skip]);
+    loadMatches(selectedMatchStatus, limit, skip, activeFilter);
+  }, [selectedMatchStatus, skip, activeFilter]);
 
   return (
     <div>
       <div className="flex justify-start gap-3">
-        <MatchFilterBox
-          text="Zaplanowane"
+        <MatchStatusBox
+          text="Wszystkie"
           isActive={selectedMatchStatus === "scheduled"}
           onClick={() => {
             setSelectedMatchStatus("scheduled");
             setSkip(0);
+            setActiveFilter("all");
           }}
         />
-        <MatchFilterBox
+        <MatchStatusBox
           text="W trakcie"
           isActive={selectedMatchStatus === "locked"}
           onClick={() => {
             setSelectedMatchStatus("locked");
             setSkip(0);
+            setActiveFilter("all");
           }}
         />
-        <MatchFilterBox
+        <MatchStatusBox
           text="Zakończone"
           isActive={selectedMatchStatus === "finished"}
           onClick={() => {
             setSelectedMatchStatus("finished");
+            setSkip(0);
+            setActiveFilter("all");
+          }}
+        />
+      </div>
+
+      <div className="flex items-center gap-4 mt-4">
+        <MatchFilterItem
+          text="Wszystkie"
+          isActive={activeFilter === "all"}
+          onClick={() => {
+            setActiveFilter("all");
+            setSkip(0);
+          }}
+        />
+        <MatchFilterItem
+          text="Obstawione"
+          isActive={activeFilter === "betted"}
+          onClick={() => {
+            setActiveFilter("betted");
+            setSkip(0);
+          }}
+        />
+        <MatchFilterItem
+          text="Nieobstawione"
+          isActive={activeFilter === "not_betted"}
+          onClick={() => {
+            setActiveFilter("not_betted");
             setSkip(0);
           }}
         />
@@ -83,7 +127,7 @@ export default function page() {
           matchesData.map((match) => (
             <MatchPredictionsBox key={match.id} matchData={match} />
           ))}
-        {!isLoading && matchesData.length > 0 && (
+        {!isLoading && matchesData.length > 0 && totalItems >= skip && (
           <div
             onClick={() => {
               setSkip(skip + 10);

@@ -16,17 +16,23 @@ export default function Page() {
   const [matches, setMatches] = useState<MatchType[]>([]);
   const [matchToEdit, setMatchToEdit] = useState<MatchType | null>(null);
   const { user } = useAuth();
+  const filter = "all";
 
   if (user?.role === "player") {
     redirect("/");
   }
 
-  async function loadMatches(status: string, limit: number, skip: number) {
+  async function loadMatches(
+    status: string,
+    limit: number,
+    skip: number,
+    filter: string,
+  ) {
     try {
       setIsLoading(true);
 
       const res = await fetch(
-        `/api/matches?status=${status}&limit=${limit}&skip=${skip}&include_bets=true`,
+        `/api/matches?bet_filter=${filter}&status=${status}&limit=${limit}&skip=${skip}&include_bets=true`,
       );
 
       const data = await res.json();
@@ -34,7 +40,7 @@ export default function Page() {
       if (!res.ok) {
         throw new Error(data.detail);
       }
-      setMatches(data);
+      setMatches(data.items);
     } catch (err) {
       console.error(err);
     } finally {
@@ -43,7 +49,7 @@ export default function Page() {
   }
 
   useEffect(() => {
-    loadMatches("locked", 100, 0);
+    loadMatches("locked", 100, 0, filter);
   }, []);
 
   return (

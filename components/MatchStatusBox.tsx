@@ -4,7 +4,7 @@ type MatchFilterType = {
   onClick: () => void;
 };
 
-export default function MatchFilterBox({
+export default function MatchStatusBox({
   text,
   isActive,
   onClick,

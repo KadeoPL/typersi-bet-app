@@ -8,13 +8,12 @@ export async function GET(request: NextRequest) {
   const token = (await cookies()).get("token")?.value;
 
   const status = request.nextUrl.searchParams.get("status");
-
   const skip = request.nextUrl.searchParams.get("skip");
-
   const limit = request.nextUrl.searchParams.get("limit");
+  const filter = request.nextUrl.searchParams.get("bet_filter");
 
   const res = await fetch(
-    `${API_URL}/matches?status=${status}&skip=${skip}&limit=${limit}&include_bets=true`,
+    `${API_URL}/matches?bet_filter=${filter}&status=${status}&skip=${skip}&limit=${limit}&include_bets=true`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -26,7 +25,7 @@ export async function GET(request: NextRequest) {
 
   const data = await res.json();
 
-  return NextResponse.json(data.items, {
+  return NextResponse.json(data, {
     status: res.status,
   });
 }
