@@ -22,7 +22,7 @@ export default function PredictionsTeamRadioInput({
             selectedOption === option
               ? isEdit
                 ? "bg-primary text-black border-primary"
-                : "bg-surfaceLight text-textPrimary border-borderLight"
+                : "bg-surfaceLight text-textMuted border-borderLight"
               : "bg-surface text-textMuted border-borderLight"
           }`}
         >

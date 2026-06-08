@@ -49,48 +49,40 @@ export default function UserProfile({
           <ArrowLeft className="text-textSecondary" />
         </Link>
         <div className="absolute left-1/2 -translate-x-1/2 text-textPrimary">
-          Profil
+          Statystyki gracza
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 flex items-center justify-center gap-5">
         <div
-          className="w-32 h-32 rounded-full bg-cover border-2 border-primary mx-auto mb-4"
+          className="w-28 h-28 rounded-full bg-cover border-2 border-primary"
           style={{
             backgroundImage: "url('/avatars/avatar_1.jpg')",
           }}
         ></div>
-        <div className="text-textPrimary text-center font-bold text-3xl">
-          {user?.username}
-        </div>
-        <div className="text-primary text-center uppercase text-xs mt-2 tracking-widest">
-          {rank.name}
-        </div>
-      </div>
-      <div className="flex flex-col gap-4 mt-10">
-        <div className="flex bg-surface rounded-lg py-4">
-          <div className="w-1/3 flex items-center justify-center">
-            <TrophyIcon className="text-primary" size={50} />
-          </div>
+        <div className="flex flex-col gap-4">
           <div>
-            <div className="text-textSecondary">Punkty</div>
-            <div className="text-2xl text-textPrimary font-bold">
-              {user?.total_points}
+            <div className="text-textPrimary text-left font-bold text-2xl">
+              {user?.username}
+            </div>
+            <div className="text-textSecondary text-left uppercase text-xs mt-1 tracking-widest">
+              {rank.name}
             </div>
           </div>
-        </div>
-        <div className="flex bg-surface rounded-lg py-4">
-          <div className="w-1/3 flex items-center justify-center">
-            <BookCheck className="text-primary" size={50} />
-          </div>
-          <div>
-            <div className="text-textSecondary">Poprawne typy</div>
-            <div className="text-2xl text-textPrimary font-bold">
-              {user?.exact_bets}
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <TrophyIcon className="text-primary" />
+              <div className="text-primary text-xl font-bold">
+                {user?.total_points}
+              </div>
+              <div className="text-textSecondary text-sm">pkt.</div>
+            </div>
+            <div className="text-sm text-textSecondary">
+              Łączna liczba punktów
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-10 px-4">
+      <div className="mt-10 ">
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <div className="w-14 h-14 bg-surfaceLight grid place-content-center rounded-full">
@@ -117,6 +109,30 @@ export default function UserProfile({
               )}%`,
             }}
           ></div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4 mt-10">
+        <div className="flex bg-surface rounded-lg py-4">
+          <div className="w-1/3 flex items-center justify-center">
+            <TrophyIcon className="text-primary" size={50} />
+          </div>
+          <div>
+            <div className="text-textSecondary">Punkty</div>
+            <div className="text-2xl text-textPrimary font-bold">
+              {user?.total_points}
+            </div>
+          </div>
+        </div>
+        <div className="flex bg-surface rounded-lg py-4">
+          <div className="w-1/3 flex items-center justify-center">
+            <BookCheck className="text-primary" size={50} />
+          </div>
+          <div>
+            <div className="text-textSecondary">Poprawne typy</div>
+            <div className="text-2xl text-textPrimary font-bold">
+              {user?.exact_bets}
+            </div>
+          </div>
         </div>
       </div>
     </div>

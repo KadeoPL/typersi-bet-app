@@ -22,7 +22,7 @@ export default function MatchScheduledSection({
   const [isSuccess, setIsSuccess] = useState(false);
   const [betData, setBetData] = useState(matchData.my_bet);
   const hasBet = !!betData;
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(!hasBet);
 
   const handleSubmit = async () => {
     setError("");
@@ -76,6 +76,7 @@ export default function MatchScheduledSection({
         setBetData(newBet);
 
         setIsSuccess(true);
+        setIsEdit(false);
 
         setTimeout(() => {
           setIsSuccess(false);
@@ -113,7 +114,7 @@ export default function MatchScheduledSection({
           <PredictionsGoalInput
             goals={homeGoals}
             onChange={setHomeGoals}
-            isEdit={isEdit}
+            isEdit={isEdit || !hasBet}
           />
 
           <div className="text-2xl text-textPrimary text-center">:</div>
@@ -121,7 +122,7 @@ export default function MatchScheduledSection({
           <PredictionsGoalInput
             goals={awayGoals}
             onChange={setAwayGoals}
-            isEdit={isEdit}
+            isEdit={isEdit || !hasBet}
           />
         </div>
 
@@ -135,7 +136,7 @@ export default function MatchScheduledSection({
           <PredictionsTeamRadioInput
             onChange={setSelectedOption}
             selectedOption={selectedOption}
-            isEdit={isEdit}
+            isEdit={isEdit || !hasBet}
           />
         </div>
 
@@ -150,7 +151,7 @@ export default function MatchScheduledSection({
             </>
           ) : isSuccess ? (
             <>✓ Wysłano</>
-          ) : isEdit ? (
+          ) : isEdit && hasBet ? (
             <>
               <Save size={20} /> Zapisz zmiany
             </>
@@ -166,6 +167,16 @@ export default function MatchScheduledSection({
             </>
           )}
         </button>
+        {isEdit && (
+          <button
+            className="text-danger text-center  text-xs mt-4 w-full"
+            onClick={() => {
+              setIsEdit(false);
+            }}
+          >
+            Anuluj
+          </button>
+        )}
       </div>
       <h1
         className={`text-xs font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
