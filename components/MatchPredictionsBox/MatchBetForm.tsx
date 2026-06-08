@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronUp, LoaderCircle, Pencil, Send } from "lucide-react";
+import { ChevronUp, LoaderCircle, Pencil, Save, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import PredictionsGoalInput from "./MatchScoreInput";
 import PredictionsTeamRadioInput from "./MatchOutcomeSelect";
@@ -152,8 +152,7 @@ export default function MatchScheduledSection({
             <>✓ Wysłano</>
           ) : isEdit ? (
             <>
-              <Pencil size={20} />
-              Zapisz zmiany
+              <Save size={20} /> Zapisz zmiany
             </>
           ) : hasBet ? (
             <>
@@ -174,7 +173,9 @@ export default function MatchScheduledSection({
           setIsOpen(!isOpen);
         }}
       >
-        Rozwiń, aby wytypować wynik
+        {hasBet
+          ? "✓ Typ zapisany, rozwiń, aby edytować"
+          : "Rozwiń, aby wytypować mecz"}
       </h1>
       <ChevronUp
         className={`
