@@ -28,7 +28,7 @@ export default function MatchScheduledSection({
     setError("");
     setIsSuccess(false);
 
-    if (!isEdit) {
+    if (hasBet && !isEdit) {
       setIsEdit(true);
       return;
     }
@@ -167,7 +167,7 @@ export default function MatchScheduledSection({
             </>
           )}
         </button>
-        {isEdit && (
+        {isEdit && hasBet && (
           <button
             className="text-danger text-center  text-xs mt-4 w-full"
             onClick={() => {
