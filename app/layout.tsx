@@ -13,9 +13,10 @@ const interSans = Inter({
 
 export const metadata: Metadata = {
   title: "Typersi",
+  appleWebApp: {
+    title: "Typersi",
+  },
 };
-
-<meta name="apple-mobile-web-app-title" content="Typersi" />;
 
 export default function RootLayout({
   children,
@@ -25,19 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pl" suppressHydrationWarning>
       <body
-        className={`
- ${interSans.variable}
-
- antialiased
-
- min-h-screen
-
- bg-background
-
- overflow-y-auto
-
- overflow-x-hidden
- `}
+        className={`${interSans.variable} antialiased min-h-screen bg-background overflow-y-auto overflow-x-hidden`}
       >
         <Theme>{children}</Theme>
       </body>
