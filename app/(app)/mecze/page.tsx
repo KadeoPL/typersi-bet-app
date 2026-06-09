@@ -61,7 +61,7 @@ export default function page() {
     <div>
       <div className="flex justify-start gap-3">
         <MatchStatusBox
-          text="Wszystkie"
+          text="Zaplanowane"
           isActive={selectedMatchStatus === "scheduled"}
           onClick={() => {
             setSelectedMatchStatus("scheduled");
