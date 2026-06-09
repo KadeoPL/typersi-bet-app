@@ -1,9 +1,17 @@
 "use client";
-import { getUser } from "@/app/lib/api/getUser";
+import { getUserStats } from "@/app/lib/api/getUserStats";
 import { getUserRank } from "@/app/lib/getUserRank";
 import Loader from "@/components/Loader";
 import { User } from "@/utils/types/user";
-import { ArrowLeft, BookCheck, LucideIcon, TrophyIcon } from "lucide-react";
+import {
+  ArrowLeft,
+  ChartBarBig,
+  ChartColumnBig,
+  LucideIcon,
+  ThumbsUp,
+  TrendingUp,
+  TrophyIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
 
@@ -25,10 +33,16 @@ export default function UserProfile({
   const rank: Rank = getUserRank(user?.total_points ?? 0);
   const Icon = rank.icon;
 
+  const pointsPerMatch =
+    user && user.finished_bets_count > 0
+      ? (user.total_points / user.finished_bets_count).toFixed(1)
+      : "0.0";
+
   async function loadUser() {
     try {
       setIsLoading(true);
-      const data = await getUser(id);
+      const data = await getUserStats(id);
+      console.log(data);
       setUser(data);
     } catch (err) {
       console.error(err);
@@ -42,7 +56,7 @@ export default function UserProfile({
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-12">
       {isLoading && <Loader />}
       <div className="relative flex items-center">
         <Link href="/wyniki">
@@ -82,7 +96,7 @@ export default function UserProfile({
           </div>
         </div>
       </div>
-      <div className="mt-10 ">
+      <div className="mt-10 px-4">
         <div className="flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <div className="w-14 h-14 bg-surfaceLight grid place-content-center rounded-full">
@@ -111,27 +125,35 @@ export default function UserProfile({
           ></div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 mt-10">
-        <div className="flex bg-surface rounded-lg py-4">
-          <div className="w-1/3 flex items-center justify-center">
-            <TrophyIcon className="text-primary" size={50} />
+      <div className="w-full grid grid-cols-2 gap-4 mt-5 p-4">
+        <div className="aspect-square bg-surfaceLight rounded-lg p-4 flex flex-col justify-around">
+          <TrendingUp className="text-textSecondary" />
+          <div className="text-2xl font-bold text-textPrimary">
+            {pointsPerMatch}
           </div>
-          <div>
-            <div className="text-textSecondary">Punkty</div>
-            <div className="text-2xl text-textPrimary font-bold">
-              {user?.total_points}
-            </div>
-          </div>
+          <div className="text-xs text-textMuted">Średnia punktów na mecz</div>
         </div>
-        <div className="flex bg-surface rounded-lg py-4">
-          <div className="w-1/3 flex items-center justify-center">
-            <BookCheck className="text-primary" size={50} />
+        <div className=" aspect-square bg-surfaceLight rounded-lg p-4 flex flex-col justify-around">
+          <ThumbsUp className="text-textSecondary" />
+          <div className="text-2xl font-bold text-textPrimary">
+            {user?.exact_bets}
           </div>
-          <div>
-            <div className="text-textSecondary">Poprawne typy</div>
-            <div className="text-2xl text-textPrimary font-bold">
-              {user?.exact_bets}
-            </div>
+          <div className="text-xs text-textMuted">Dokładne typy</div>
+        </div>
+        <div className=" aspect-square bg-surfaceLight rounded-lg p-4 flex flex-col justify-around">
+          <ChartBarBig className="text-textSecondary" />
+          <div className="text-2xl font-bold text-textPrimary">
+            {user?.score_accuracy}
+          </div>
+          <div className="text-xs text-textMuted">Skuteczność wyniku meczu</div>
+        </div>
+        <div className=" aspect-square bg-surfaceLight rounded-lg p-4 flex flex-col justify-around">
+          <ChartColumnBig className="text-textSecondary" />
+          <div className="text-2xl font-bold text-textPrimary">
+            {user?.outcome_accuracy}
+          </div>
+          <div className="text-xs text-textMuted">
+            Skuteczność rezultatu meczu
           </div>
         </div>
       </div>

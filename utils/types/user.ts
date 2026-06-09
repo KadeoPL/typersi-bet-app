@@ -10,6 +10,9 @@ export type User = {
   total_points: number;
   exact_bets: number;
   must_change_password: boolean;
+  outcome_accuracy: number;
+  score_accuracy: number;
+  finished_bets_count: number;
 };
 
 export type UserRoleEditType = {
