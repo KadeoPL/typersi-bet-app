@@ -1,5 +1,7 @@
 "use client";
 
+import getAvatar from "@/app/lib/getAvatar";
+import useAvatar from "@/app/lib/getAvatar";
 import Button from "@/components/Button";
 import SettingsPageHeader from "@/components/SettingsPageHeader";
 import { useAuth } from "@/utils/providers/AuthProvider";
@@ -25,13 +27,7 @@ export default function page() {
     setPreview(imageUrl);
   };
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
-
-  const avatarSrc =
-    preview ||
-    (user?.avatar_url
-      ? `${apiUrl}${user.avatar_url}`
-      : "/avatars/avatar_1.jpg");
+  const avatarSrc = preview || getAvatar(user);
 
   return (
     <div className="mb-12">
