@@ -12,9 +12,6 @@ export default function page() {
   const [file, setFile] = useState<File | null>(null);
 
   const { user } = useAuth();
-  console.log(user);
-  const envUrl = process.env.NEXT_PUBLIC_API_URL;
-  // const avatarSrc = `${envUrl}${user?.avatar_url}`;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -28,8 +25,16 @@ export default function page() {
     setPreview(imageUrl);
   };
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+  const avatarSrc =
+    preview ||
+    (user?.avatar_url
+      ? `${apiUrl}${user.avatar_url}`
+      : "/avatars/avatar_1.jpg");
+
   return (
-    <div className="mb-8">
+    <div className="mb-12">
       <div className="px-4">
         <div>
           <SettingsPageHeader url="ustawienia" text="Zdjęcie profilowe" />
@@ -42,11 +47,7 @@ export default function page() {
 
         <div className="w-24 h-24 rounded-full bg-cover bg-center border-2 border-primary mx-auto my-4 relative overflow-hidden">
           <Image
-            src={
-              preview
-                ? preview
-                : "https://typersiapi.tojest.dev/media/avatars/default.webp"
-            }
+            src={avatarSrc}
             fill
             alt="Zdjęcie profilowe użytkownika"
             className="object-cover"

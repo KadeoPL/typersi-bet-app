@@ -7,4 +7,8 @@ export const settingsUserItems = [
     text: "Zmień motyw",
     action: "theme",
   },
+  {
+    text: "Zmień avatar",
+    url: "ustawienia/zmien-avatar",
+  },
 ];

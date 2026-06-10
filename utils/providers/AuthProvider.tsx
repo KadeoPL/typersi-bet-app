@@ -1,15 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-
-type User = {
-  id: number;
-  username: string;
-  role: string;
-  total_points: number;
-  exact_bets: number;
-  must_change_password: boolean;
-};
+import { User } from "../types/user";
 
 type AuthContextType = {
   user: User | null;
