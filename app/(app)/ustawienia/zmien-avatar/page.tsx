@@ -1,5 +1,6 @@
 "use client";
 
+import { uploadAvatar } from "@/app/lib/api/uploadAvatar";
 import getAvatar from "@/app/lib/getAvatar";
 import useAvatar from "@/app/lib/getAvatar";
 import Button from "@/components/Button";
@@ -17,14 +18,20 @@ export default function page() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-
     if (!selectedFile) return;
-
     setFile(selectedFile);
-
     const imageUrl = URL.createObjectURL(selectedFile);
-
     setPreview(imageUrl);
+  };
+
+  const handleSubmit = async () => {
+    if (!file) return;
+
+    try {
+      await uploadAvatar(file);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const avatarSrc = preview || getAvatar(user);
