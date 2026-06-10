@@ -35,7 +35,7 @@ export default function UserProfile({
   const [user, setUser] = useState<User | null>(null);
   const rank: Rank = getUserRank(userStats?.total_points ?? 0);
   const Icon = rank.icon;
-  const avatar = getAvatar(user);
+  const avatar = `${getAvatar(user)}?t=${Date.now()}`;
 
   const pointsPerMatch =
     userStats && userStats.finished_bets_count > 0

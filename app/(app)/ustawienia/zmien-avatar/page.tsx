@@ -12,7 +12,6 @@ import { useState } from "react";
 export default function page() {
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string>("");
   const [buttonState, setButtonState] = useState<ButtonState>("normal");
   const buttonText = () => {
     switch (buttonState) {
@@ -76,6 +75,7 @@ export default function page() {
           <Image
             src={avatarSrc}
             fill
+            sizes="(max-width: 768px) 100vw, 33vw"
             alt="Zdjęcie profilowe użytkownika"
             className="object-cover"
           />

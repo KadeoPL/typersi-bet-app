@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Avatar() {
   const { user } = useAuth();
-  const avatar = getAvatar(user);
+  const avatar = `${getAvatar(user)}?t=${Date.now()}`;
 
   return (
     <div className="w-full flex gap-4 items-center mb-10 bg-secondary p-4 rounded-lg">
