@@ -1,5 +1,6 @@
 "use client";
 import { getUserStats } from "@/app/lib/api/getUserStats";
+import getAvatar from "@/app/lib/getAvatar";
 import { getUserRank } from "@/app/lib/getUserRank";
 import Loader from "@/components/Loader";
 import { User } from "@/utils/types/user";
@@ -32,6 +33,7 @@ export default function UserProfile({
   const [user, setUser] = useState<User | null>(null);
   const rank: Rank = getUserRank(user?.total_points ?? 0);
   const Icon = rank.icon;
+  const avatar = getAvatar(user);
 
   const pointsPerMatch =
     user && user.finished_bets_count > 0
@@ -42,7 +44,6 @@ export default function UserProfile({
     try {
       setIsLoading(true);
       const data = await getUserStats(id);
-      console.log(data);
       setUser(data);
     } catch (err) {
       console.error(err);
@@ -70,7 +71,7 @@ export default function UserProfile({
         <div
           className="w-28 h-28 rounded-full bg-cover border-2 border-primary"
           style={{
-            backgroundImage: "url('/avatars/avatar_1.jpg')",
+            backgroundImage: `url(${avatar})`,
           }}
         ></div>
         <div className="flex flex-col gap-4">

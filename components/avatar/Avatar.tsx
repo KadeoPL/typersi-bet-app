@@ -1,17 +1,19 @@
 "use client";
 
+import getAvatar from "@/app/lib/getAvatar";
 import { useAuth } from "@/utils/providers/AuthProvider";
 import Link from "next/link";
 
 export default function Avatar() {
   const { user } = useAuth();
+  const avatar = getAvatar(user);
 
   return (
     <div className="w-full flex gap-4 items-center mb-10 bg-secondary p-4 rounded-lg">
       <div
         className="w-14 h-14 bg-cover rounded-full drop-shadow-md border-2 border-primary"
         style={{
-          backgroundImage: "url('/avatars/avatar_1.jpg')",
+          backgroundImage: `url(${avatar})`,
         }}
       ></div>
       <div>
