@@ -13,6 +13,7 @@ export type User = {
   outcome_accuracy: number;
   score_accuracy: number;
   finished_bets_count: number;
+  avatar_url: string;
 };
 
 export type UserRoleEditType = {
