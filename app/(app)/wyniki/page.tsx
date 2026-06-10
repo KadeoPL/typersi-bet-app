@@ -18,7 +18,6 @@ export default function Wyniki() {
       setIsLoading(true);
 
       const data = await getUsersLeaderboard();
-
       setUsers(data);
     } catch (err) {
       console.error(err);

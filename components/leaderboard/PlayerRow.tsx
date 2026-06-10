@@ -16,6 +16,7 @@ export default function PlayerRow({
   user_id,
 }: PlayerRowProps) {
   const rank = getUserRank(total_points);
+
   const placeColor = (place: number) => {
     switch (place) {
       case 1:
@@ -43,7 +44,7 @@ export default function PlayerRow({
         </div>
       </div>
       <div className="w-7/12 cursor-pointer hover:font-bold flex gap-2 items-center">
-        {/* <div className="w-12 h-12 bg-blue-200 rounded-full"></div> */}
+        <div className="w-8 h-8 rounded-full"></div>
         <div>
           <Link className="font-bold text-lg" href={`/wyniki/${user_id}`}>
             {username}

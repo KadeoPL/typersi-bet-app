@@ -2,8 +2,7 @@
 
 import { uploadAvatar } from "@/app/lib/api/uploadAvatar";
 import getAvatar from "@/app/lib/getAvatar";
-import useAvatar from "@/app/lib/getAvatar";
-import Button from "@/components/Button";
+import Button, { ButtonState } from "@/components/Button";
 import SettingsPageHeader from "@/components/SettingsPageHeader";
 import { useAuth } from "@/utils/providers/AuthProvider";
 import { CloudUpload } from "lucide-react";
@@ -13,6 +12,20 @@ import { useState } from "react";
 export default function page() {
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [error, setError] = useState<string>("");
+  const [buttonState, setButtonState] = useState<ButtonState>("normal");
+  const buttonText = () => {
+    switch (buttonState) {
+      case "normal":
+        return "Zapisz zdjęcie";
+      case "success":
+        return "Zdjęcie zapisane";
+      case "loading":
+        return "Zapisywanie...";
+      case "error":
+        return "Błąd zapisywania, spróbuj ponownie";
+    }
+  };
 
   const { user } = useAuth();
 
@@ -28,9 +41,20 @@ export default function page() {
     if (!file) return;
 
     try {
+      setButtonState("loading");
       await uploadAvatar(file);
+      setButtonState("success");
+      setTimeout(() => {
+        setButtonState("normal");
+      }, 2000);
     } catch (err) {
       console.error(err);
+      const message = err instanceof Error ? err.message : String(err);
+      console.log(message);
+      setButtonState("error");
+      setTimeout(() => {
+        setButtonState("normal");
+      }, 3000);
     }
   };
 
@@ -81,7 +105,13 @@ export default function page() {
           </div>
         </label>
 
-        <Button text="Zapisz zdjęcie" className="w-full" />
+        <Button
+          text={buttonText()}
+          className="w-full"
+          onClick={handleSubmit}
+          state={buttonState}
+          disabled={buttonState === "loading"}
+        />
       </div>
     </div>
   );

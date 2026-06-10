@@ -8,6 +8,7 @@ export type ButtonProps = {
   state?: ButtonState;
   className?: string;
   url?: string;
+  disabled?: boolean;
 };
 
 export type ButtonState = "normal" | "loading" | "success" | "error";
@@ -19,9 +20,11 @@ export default function Button({
   state = "normal",
   className,
   url,
+  disabled,
 }: ButtonProps) {
   return (
     <button
+      disabled={disabled}
       className={`
         px-4 py-3 rounded-full
         ${state === "error" ? "bg-danger text-textPrimary" : "bg-primary text-background"}

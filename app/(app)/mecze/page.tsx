@@ -21,6 +21,7 @@ export default function page() {
   const [skip, setSkip] = useState(0);
   const limit = 10;
   const [totalItems, setTotalItems] = useState<number>(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   async function loadMatches(
     status: string,
@@ -29,7 +30,11 @@ export default function page() {
     activeFilter: string,
   ) {
     try {
-      setIsLoading(true);
+      if (skip === 0) {
+        setIsLoading(true);
+      } else {
+        setIsLoadingMore(true);
+      }
 
       const res = await fetch(
         `/api/matches?bet_filter=${activeFilter}&status=${status}&limit=${limit}&skip=${skip}&include_bets=true`,
@@ -125,21 +130,26 @@ export default function page() {
       <div className="mb-16">
         {!isLoading &&
           matchesData.map((match) => (
-            <MatchPredictionsBox key={match.id} matchData={match} />
-          ))}
-        {!isLoading &&
-          matchesData.length > 0 &&
-          totalItems >= skip &&
-          totalItems > limit && (
-            <div
-              onClick={() => {
-                setSkip(skip + 10);
+            <MatchPredictionsBox
+              key={match.id}
+              matchData={match}
+              onBetPlaced={(matchId) => {
+                if (activeFilter === "not_betted") {
+                  setMatchesData((prev) =>
+                    prev.filter((m) => m.id !== matchId),
+                  );
+                }
               }}
-              className="mt-4 text-center text-textSecondary cursor-pointer text-sm"
-            >
-              Pokaż więcej
-            </div>
-          )}
+            />
+          ))}
+        {!isLoading && matchesData.length < totalItems && (
+          <div
+            onClick={() => setSkip((prev) => prev + limit)}
+            className="mt-4 text-center text-textSecondary cursor-pointer text-sm"
+          >
+            Pokaż więcej
+          </div>
+        )}
       </div>
     </div>
   );

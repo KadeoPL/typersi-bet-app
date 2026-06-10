@@ -7,10 +7,12 @@ import { getStage } from "@/app/lib/getStage";
 
 type MatchPredictionsBoxType = {
   matchData: MatchType;
+  onBetPlaced?: (matchId: number) => void;
 };
 
 export default function MatchPredictionsBox({
   matchData,
+  onBetPlaced,
 }: MatchPredictionsBoxType) {
   const isMatchStart =
     matchData.status === "locked" || matchData.status === "finished";
@@ -56,7 +58,10 @@ export default function MatchPredictionsBox({
       {isMatchStart ? (
         <MatchStartSection matchData={matchData} />
       ) : (
-        <MatchScheduledSection matchData={matchData} />
+        <MatchScheduledSection
+          matchData={matchData}
+          onBetPlaced={onBetPlaced}
+        />
       )}
     </div>
   );

@@ -10,8 +10,10 @@ import { patchBet } from "@/app/lib/api/patchBet";
 
 export default function MatchScheduledSection({
   matchData,
+  onBetPlaced,
 }: {
   matchData: MatchType;
+  onBetPlaced?: (matchId: number) => void;
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [homeGoals, setHomeGoals] = useState<number | null>(null);
@@ -74,6 +76,7 @@ export default function MatchScheduledSection({
         });
 
         setBetData(newBet);
+        onBetPlaced?.(matchData.id);
 
         setIsSuccess(true);
         setIsEdit(false);

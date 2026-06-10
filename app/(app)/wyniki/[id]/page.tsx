@@ -1,4 +1,5 @@
 "use client";
+import { getUser } from "@/app/lib/api/getUser";
 import { getUserStats } from "@/app/lib/api/getUserStats";
 import getAvatar from "@/app/lib/getAvatar";
 import { getUserRank } from "@/app/lib/getUserRank";
@@ -30,21 +31,24 @@ export default function UserProfile({
 }) {
   const { id } = use(params);
   const [isLoading, setIsLoading] = useState(false);
+  const [userStats, setUserStats] = useState<User | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const rank: Rank = getUserRank(user?.total_points ?? 0);
+  const rank: Rank = getUserRank(userStats?.total_points ?? 0);
   const Icon = rank.icon;
   const avatar = getAvatar(user);
 
   const pointsPerMatch =
-    user && user.finished_bets_count > 0
-      ? (user.total_points / user.finished_bets_count).toFixed(1)
+    userStats && userStats.finished_bets_count > 0
+      ? (userStats.total_points / userStats.finished_bets_count).toFixed(1)
       : "0.0";
 
   async function loadUser() {
     try {
       setIsLoading(true);
-      const data = await getUserStats(id);
-      setUser(data);
+      const statsData = await getUserStats(id);
+      const userData = await getUser(id);
+      setUserStats(statsData);
+      setUser(userData);
     } catch (err) {
       console.error(err);
     } finally {
@@ -77,7 +81,7 @@ export default function UserProfile({
         <div className="flex flex-col gap-4">
           <div>
             <div className="text-textPrimary text-left font-bold text-2xl">
-              {user?.username}
+              {userStats?.username}
             </div>
             <div className="text-textSecondary text-left uppercase text-xs mt-1 tracking-widest">
               {rank.name}
@@ -87,7 +91,7 @@ export default function UserProfile({
             <div className="flex items-center gap-2">
               <TrophyIcon className="text-primary" />
               <div className="text-primary text-xl font-bold">
-                {user?.total_points}
+                {userStats?.total_points}
               </div>
               <div className="text-textSecondary text-sm">pkt.</div>
             </div>
@@ -110,7 +114,7 @@ export default function UserProfile({
           </div>
           <div>
             <div className="text-primary font-bold">
-              {user?.total_points} / {rank.max} pkt
+              {userStats?.total_points} / {rank.max} pkt
             </div>
           </div>
         </div>
@@ -119,7 +123,7 @@ export default function UserProfile({
             className="h-3 bg-primary rounded-lg"
             style={{
               width: `${Math.min(
-                ((user?.total_points ?? 0) / rank.max) * 100,
+                ((userStats?.total_points ?? 0) / rank.max) * 100,
                 100,
               )}%`,
             }}
@@ -137,21 +141,21 @@ export default function UserProfile({
         <div className=" aspect-square bg-surfaceLight rounded-lg p-4 flex flex-col justify-around">
           <ThumbsUp className="text-textSecondary" />
           <div className="text-2xl font-bold text-textPrimary">
-            {user?.exact_bets}
+            {userStats?.exact_bets}
           </div>
           <div className="text-xs text-textMuted">Dokładne typy</div>
         </div>
         <div className=" aspect-square bg-surfaceLight rounded-lg p-4 flex flex-col justify-around">
           <ChartBarBig className="text-textSecondary" />
           <div className="text-2xl font-bold text-textPrimary">
-            {user?.score_accuracy}
+            {userStats?.score_accuracy}%
           </div>
           <div className="text-xs text-textMuted">Skuteczność wyniku meczu</div>
         </div>
         <div className=" aspect-square bg-surfaceLight rounded-lg p-4 flex flex-col justify-around">
           <ChartColumnBig className="text-textSecondary" />
           <div className="text-2xl font-bold text-textPrimary">
-            {user?.outcome_accuracy}
+            {userStats?.outcome_accuracy}%
           </div>
           <div className="text-xs text-textMuted">
             Skuteczność rezultatu meczu
