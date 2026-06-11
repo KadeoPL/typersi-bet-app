@@ -25,7 +25,7 @@ export async function getMatches({
     filter: String(filter),
   });
 
-  const res = await fetch(`${API_URL}/matches?${params}`, {
+  const res = await fetch(`${API_URL}/matches?${params}&include_bets=true`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

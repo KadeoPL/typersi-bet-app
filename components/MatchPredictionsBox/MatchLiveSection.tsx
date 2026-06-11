@@ -36,7 +36,7 @@ export default function MatchStartSection({
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full ">
         <div className="text-center text-sm text-textPrimary">Twój typ</div>
 
         <div className="flex justify-around mt-2 items-center">
@@ -73,9 +73,8 @@ export default function MatchStartSection({
         <div
           className={`
             w-full
-              overflow-hidden
               transition-all duration-300
-              ${isOpen ? "max-h-96 opacity-100 mt-6" : "max-h-0 opacity-0"}
+              ${isOpen ? "max-h-[2000px] opacity-100 mt-6" : "max-h-0 opacity-0"}
             `}
         >
           <div className="flex flex-col gap-2 w-full">
