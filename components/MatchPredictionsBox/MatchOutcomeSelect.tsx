@@ -21,8 +21,8 @@ export default function PredictionsTeamRadioInput({
           className={`cursor-pointer w-16 h-10 rounded-lg border-[1px] transition text-xl flex items-center justify-center ${
             selectedOption === option
               ? isEdit
-                ? "bg-primary text-black border-primary"
-                : "bg-surfaceLight text-textMuted border-borderLight"
+                ? "bg-surface text-primary border-primary"
+                : "bg-primary text-black border-primary"
               : "bg-surface text-textMuted border-borderLight"
           }`}
         >

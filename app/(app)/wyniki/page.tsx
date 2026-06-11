@@ -52,7 +52,7 @@ export default function Wyniki() {
       <p className="text-textSecondary text-sm mb-10 mt-2">
         Ranking typerów Mistrzostw Świata 2026
       </p>
-      <div className="w-full flex gap-4 text-textSecondary text-sm bg-surface px-4 py-4 ">
+      <div className="w-full flex gap-4 text-textSecondary text-sm bg-surface px-2 py-4 ">
         <div className="w-2/12 ">Miejsce</div>
         <div className="w-7/12">Użytkownik</div>
         <div className="w-2/12  border-borderLight">Punkty</div>
