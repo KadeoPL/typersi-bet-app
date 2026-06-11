@@ -75,7 +75,7 @@ function UserAvatar({ id }: { id: number }) {
 
   async function loadAvatar() {
     const user = await getUser(id);
-    setAvatar(await getAvatar(user));
+    setAvatar(getAvatar(user));
   }
 
   return (

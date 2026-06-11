@@ -30,11 +30,10 @@ export default function page() {
   const avatarSrc = preview || getAvatar(user);
 
   return (
-    <div className="mb-12">
+    <div className="mb-20">
       <div className="px-4">
         <div>
           <SettingsPageHeader url="ustawienia" text="Zdjęcie profilowe" />
-
           <p className="text-textSecondary text-sm">
             Wgraj swoje zdjęcie profilowe. Będzie widoczne dla innych
             użytkowników.
