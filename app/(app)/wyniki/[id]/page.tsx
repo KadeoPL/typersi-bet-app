@@ -73,7 +73,7 @@ export default function UserProfile({
       </div>
       <div className="mt-10 flex items-center justify-center gap-5">
         <div
-          className="w-28 h-28 rounded-full bg-cover border-2 border-primary"
+          className="w-28 h-28 rounded-full bg-cover bg-center border-2 border-primary"
           style={{
             backgroundImage: `url(${avatar})`,
           }}
