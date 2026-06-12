@@ -33,40 +33,42 @@ export default function PlayerRow({
         return "bg-[#C67A3D] text-background";
 
       default:
-        return "bg-transparent text-textSecondary";
+        return "bg-surface text-textSecondary";
     }
   };
   return (
-    <div
-      className={`w-full flex gap-4 text-textPrimary text-base ${place % 2 === 0 ? "bg-surfaceLight" : "bg-surfaceLight"} px-4 py-4 my-4 rounded-lg`}
-    >
-      <div className="w-1/12 flex items-center text-xl font-bold">
-        <div
-          className={`w-6 h-6 flex items-center justify-center rounded-full text-base ${placeColor(place)} `}
-        >
-          {place}
+    <div className={`w-full ${placeColor(place)} rounded-xl`}>
+      <div
+        className={`w-[98%] mx-auto flex gap-4 text-textPrimary text-base ${place % 2 === 0 ? "bg-surfaceLight" : "bg-surfaceLight"} px-4 py-4 my-4 rounded-lg`}
+      >
+        <div className="w-1/12 flex items-center text-xl font-bold">
+          <div
+            className={`w-6 h-6 flex items-center justify-center rounded-full text-base ${placeColor(place)} `}
+          >
+            {place}
+          </div>
         </div>
-      </div>
-      <div className="w-8/12  hover:font-bold flex gap-2 items-center justify-start">
-        <div
-          className={`w-12 h-12 rounded-full bg-primary bg-cover bg-center border-2 border-primary`}
-          style={{ backgroundImage: `url(${avatar})` }}
-        ></div>
-        <div>
-          <Link className="font-bold text-base" href={`/wyniki/${user_id}`}>
-            {username}
+        <div className="w-8/12  hover:font-bold flex gap-2 items-center justify-start">
+          <div
+            className={`w-12 h-12 rounded-full bg-primary bg-cover bg-center border-2 border-primary`}
+            style={{ backgroundImage: `url(${avatar})` }}
+          ></div>
+          <div>
+            <Link className="font-bold text-base" href={`/wyniki/${user_id}`}>
+              {username}
+            </Link>
+            <div className="text-xs text-textSecondary">{rank.name}</div>
+          </div>
+        </div>
+        <div className="w-2/12 flex items-center justify-center font-bold text-lg text-primary">
+          {total_points}{" "}
+          <span className="text-sm ml-1 font-normal text-textMuted">pkt.</span>
+        </div>
+        <div className="w-1/12 flex items-center">
+          <Link href={`/wyniki/${user_id}`}>
+            <ChevronRight className="text-textSecondary" size={20} />
           </Link>
-          <div className="text-xs text-textSecondary">{rank.name}</div>
         </div>
-      </div>
-      <div className="w-2/12 flex items-center justify-center font-bold text-lg text-primary">
-        {total_points}{" "}
-        <span className="text-sm ml-1 font-normal text-textMuted">pkt.</span>
-      </div>
-      <div className="w-1/12 flex items-center">
-        <Link href={`/wyniki/${user_id}`}>
-          <ChevronRight className="text-textSecondary" size={20} />
-        </Link>
       </div>
     </div>
   );
