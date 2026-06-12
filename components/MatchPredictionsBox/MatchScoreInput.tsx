@@ -22,7 +22,7 @@ export default function PredictionsGoalInput({
           onChange(Number(value));
         }
       }}
-      className={`w-20 h-14 text-center bg-surface border-[1px] border-borderLight rounded-md font-semibold text-2xl focus-visible:outline-none ${goals === null || !isEdit ? "text-textMuted" : "text-primary"} flex items-center justify-center`}
+      className={`w-20 h-14 text-center  border-[1px] border-borderLight rounded-md font-semibold text-2xl focus-visible:outline-none ${goals === null || !isEdit ? "text-primary border-primary bg-surface" : "text-surface bg-primary"} flex items-center justify-center`}
     />
   );
 }
