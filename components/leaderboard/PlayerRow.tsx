@@ -7,6 +7,7 @@ type PlayerRowProps = {
   username: string;
   total_points: number;
   user_id: number;
+  avatar_url: string;
 };
 
 export default function PlayerRow({
@@ -14,8 +15,11 @@ export default function PlayerRow({
   total_points,
   place,
   user_id,
+  avatar_url,
 }: PlayerRowProps) {
   const rank = getUserRank(total_points);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+  const avatar = `${apiUrl}${avatar_url}?t=${Date.now()}`;
 
   const placeColor = (place: number) => {
     switch (place) {
@@ -34,26 +38,30 @@ export default function PlayerRow({
   };
   return (
     <div
-      className={`w-full flex gap-4 text-textPrimary text-base ${place % 2 === 0 ? "bg-surface" : "bg-surfaceLight"} px-4 py-4`}
+      className={`w-full flex gap-4 text-textPrimary text-base ${place % 2 === 0 ? "bg-surfaceLight" : "bg-surfaceLight"} px-4 py-4 my-4 rounded-lg`}
     >
-      <div className="w-2/12 flex items-center text-xl font-bold">
+      <div className="w-1/12 flex items-center text-xl font-bold">
         <div
-          className={`w-10 h-10 flex items-center justify-center rounded-full ${placeColor(place)} `}
+          className={`w-6 h-6 flex items-center justify-center rounded-full text-base ${placeColor(place)} `}
         >
           {place}
         </div>
       </div>
-      <div className="w-7/12 cursor-pointer hover:font-bold flex gap-2 items-center">
-        <div className="w-8 h-8 rounded-full"></div>
+      <div className="w-8/12  hover:font-bold flex gap-2 items-center justify-start">
+        <div
+          className={`w-12 h-12 rounded-full bg-primary bg-cover bg-center border-2 border-primary`}
+          style={{ backgroundImage: `url(${avatar})` }}
+        ></div>
         <div>
-          <Link className="font-bold text-lg" href={`/wyniki/${user_id}`}>
+          <Link className="font-bold text-base" href={`/wyniki/${user_id}`}>
             {username}
           </Link>
-          <div className="text-xs text-textSecondary mt-1">{rank.name}</div>
+          <div className="text-xs text-textSecondary">{rank.name}</div>
         </div>
       </div>
-      <div className="w-2/12 flex items-center justify-center font-bold text-xl text-primary">
-        {total_points}
+      <div className="w-2/12 flex items-center justify-center font-bold text-lg text-primary">
+        {total_points}{" "}
+        <span className="text-sm ml-1 font-normal text-textMuted">pkt.</span>
       </div>
       <div className="w-1/12 flex items-center">
         <Link href={`/wyniki/${user_id}`}>

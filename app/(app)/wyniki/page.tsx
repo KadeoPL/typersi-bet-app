@@ -18,6 +18,7 @@ export default function Wyniki() {
       setIsLoading(true);
 
       const data = await getUsersLeaderboard();
+      console.log(data);
       setUsers(data);
     } catch (err) {
       console.error(err);
@@ -51,18 +52,19 @@ export default function Wyniki() {
       <p className="text-textSecondary text-sm mb-10 mt-2">
         Ranking typerów Mistrzostw Świata 2026
       </p>
-      <div className="w-full flex gap-4 text-textSecondary text-sm bg-surface px-4 py-4 ">
+      {/* <div className="w-full flex gap-4 text-textSecondary text-sm bg-surface px-4 py-4 ">
         <div className="w-2/12 ">Miejsce</div>
         <div className="w-7/12">Użytkownik</div>
         <div className="w-2/12  border-borderLight">Punkty</div>
         <div className="w-1/12"></div>
-      </div>
+      </div> */}
       {first && (
         <PlayerRow
           place={1}
           username={first.username}
           total_points={first.total_points}
           user_id={first.id}
+          avatar_url={first.avatar_url}
         />
       )}
       {second && (
@@ -71,6 +73,7 @@ export default function Wyniki() {
           username={second.username}
           total_points={second.total_points}
           user_id={second.id}
+          avatar_url={second.avatar_url}
         />
       )}
       {third && (
@@ -79,6 +82,7 @@ export default function Wyniki() {
           username={third.username}
           total_points={third.total_points}
           user_id={third.id}
+          avatar_url={third.avatar_url}
         />
       )}
       {rest.map((user, index) => (
@@ -88,6 +92,7 @@ export default function Wyniki() {
           total_points={user.total_points}
           key={index}
           user_id={user.id}
+          avatar_url={user.avatar_url}
         />
       ))}
     </div>
