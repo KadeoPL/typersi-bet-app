@@ -12,10 +12,10 @@ export default function MatchPredictionByUser({
   outcome_bet,
 }: MatchPredictionByUserType) {
   return (
-    <div className="w-full flex bg-surfaceLight px-6 py-4 rounded-lg text-sm">
-      <div className="text-textPrimary w-1/3 ">{username}</div>
-      <div className="text-primary font-bold w-1/3">{outcome_bet}</div>
-      <div className="text-primary font-bold w-1/3 text-right">
+    <div className="w-full flex bg-surfaceLight px-6 py-4 rounded-lg text-sm items-center">
+      <div className="text-textPrimary w-2/4 ">{username}</div>
+      <div className="text-primary font-bold w-1/4">{outcome_bet}</div>
+      <div className="text-primary font-bold w-1/4 text-right ml-2">
         {score_home}:{score_away}
       </div>
     </div>
