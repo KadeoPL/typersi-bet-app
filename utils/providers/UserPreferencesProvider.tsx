@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from "react";
 
-type MatchCardView = "full" | "compact";
+export type MatchCardView = "full" | "compact";
 
 type UserPreferencesType = {
   matchCardView: MatchCardView;

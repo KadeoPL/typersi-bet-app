@@ -8,11 +8,9 @@ import Link from "next/link";
 import { Settings2, LogOut, UserStar } from "lucide-react";
 import { useAuth } from "@/utils/providers/AuthProvider";
 import ThemeSwitch from "@/components/ThemeSwitch";
-import { useUserPreferences } from "@/utils/hooks/useUserPreferences";
 
 export default function page() {
   const { user } = useAuth();
-  const matchCardView = useUserPreferences().matchCardView;
 
   return (
     <div className="pb-28">

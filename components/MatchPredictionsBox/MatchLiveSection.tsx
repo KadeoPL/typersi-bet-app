@@ -7,12 +7,17 @@ import { MatchType } from "@/utils/types/match";
 import { getBets } from "@/app/lib/api/getBets";
 import { BetType } from "@/utils/types/bet";
 import { getOutcomeBet } from "@/app/lib/getOutcomeBet";
+import { MatchCardView } from "@/utils/providers/UserPreferencesProvider";
+
+type MatchLiveSectionType = {
+  matchData: MatchType;
+  view: MatchCardView;
+};
 
 export default function MatchLiveSection({
   matchData,
-}: {
-  matchData: MatchType;
-}) {
+  view,
+}: MatchLiveSectionType) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [betsData, setBetsData] = useState<BetType[]>([]);
   const myOutcomeBet = getOutcomeBet({
@@ -37,10 +42,14 @@ export default function MatchLiveSection({
   return (
     <>
       <div className="w-full ">
-        <div className="text-center text-sm text-textPrimary">Twój typ</div>
+        {view === "full" && (
+          <div className="text-center text-sm text-textPrimary">Twój typ</div>
+        )}
 
         <div className="flex justify-around mt-2 items-center">
-          <div className="flex flex-col gap-1 max-w-1/2">
+          <div
+            className={`flex max-w-1/2 ${view === "full" ? "flex-col gap-1" : "flex-row items-center gap-2"}`}
+          >
             <div className="text-center text-sm text-textSecondary">Wynik</div>
             <div className="text-primary bg-surfaceLight py-2 px-4 rounded-lg">
               {matchData.my_bet
@@ -51,7 +60,9 @@ export default function MatchLiveSection({
             </div>
           </div>
 
-          <div className="flex flex-col gap-1 max-w-1/2">
+          <div
+            className={`flex max-w-1/2 ${view === "full" ? "flex-col gap-1" : "flex-row items-center gap-2 "}`}
+          >
             <div className="text-center text-sm text-textSecondary">
               Zwycięzca
             </div>
