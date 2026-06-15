@@ -72,9 +72,9 @@ export default function MatchStartSection({
         </h1>
         <div
           className={`
-            w-full
+            w-full 
               transition-all duration-300
-              ${isOpen ? "max-h-[2000px] opacity-100 mt-6" : "max-h-0 opacity-0"}
+              ${isOpen ? "max-h-[2000px] block mt-6" : "max-h-0 hidden"}
             `}
         >
           <div className="flex flex-col gap-2 w-full">
