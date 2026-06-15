@@ -74,7 +74,7 @@ export default function MatchLiveSection({
       </div>
       <div className="flex flex-col w-full items-center">
         <h1
-          className={`text-sm font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+          className={`text-xs font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
           onClick={() => {
             setIsOpen(!isOpen);
           }}

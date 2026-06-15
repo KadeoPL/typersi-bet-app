@@ -1,6 +1,13 @@
 "use client";
 
-import { ChevronUp, LoaderCircle, Pencil, Save, Send } from "lucide-react";
+import {
+  ChevronUp,
+  Divide,
+  LoaderCircle,
+  Pencil,
+  Save,
+  Send,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import PredictionsGoalInput from "./MatchScoreInput";
 import PredictionsTeamRadioInput from "./MatchOutcomeSelect";
@@ -181,16 +188,22 @@ export default function MatchBetForm({
           </button>
         )}
       </div>
-      <h1
+      <div
         className={`text-xs font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
-        {hasBet
-          ? "✓ Typ zapisany, rozwiń, aby edytować"
-          : "Rozwiń, aby wytypować mecz"}
-      </h1>
+        {hasBet ? (
+          <div className="bg-success text-textPrimary px-2 py-1 rounded-xl">
+            ✓ Typ zapisany, rozwiń, aby edytować
+          </div>
+        ) : (
+          <div className="bg-danger text-textPrimary px-2 py-1 rounded-xl">
+            Rozwiń, aby wytypować mecz
+          </div>
+        )}
+      </div>
       <ChevronUp
         className={`
               text-white mt-4 cursor-pointer
