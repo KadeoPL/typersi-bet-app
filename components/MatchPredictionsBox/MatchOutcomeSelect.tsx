@@ -6,7 +6,7 @@ type PredictionsTeamRadioInputTypes = {
   isEdit: boolean;
 };
 
-export default function PredictionsTeamRadioInput({
+export default function MatchOutcomeSelect({
   selectedOption,
   onChange,
   isEdit,

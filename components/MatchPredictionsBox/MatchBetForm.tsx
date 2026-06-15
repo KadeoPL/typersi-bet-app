@@ -8,7 +8,7 @@ import { betMatch } from "@/app/lib/api/betMatch";
 import { MatchType } from "@/utils/types/match";
 import { patchBet } from "@/app/lib/api/patchBet";
 
-export default function MatchScheduledSection({
+export default function MatchBetForm({
   matchData,
   onBetPlaced,
 }: {

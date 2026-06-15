@@ -4,7 +4,8 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 
-import Theme from "@/components/providers/ThemeProvider";
+import Theme from "@/utils/providers/ThemeProvider";
+import UserPreferencesProvider from "@/utils/providers/UserPreferencesProvider";
 
 const interSans = Inter({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} antialiased min-h-screen bg-background overflow-y-auto overflow-x-hidden`}
       >
-        <Theme>{children}</Theme>
+        <Theme>
+          <UserPreferencesProvider>{children}</UserPreferencesProvider>
+        </Theme>
       </body>
     </html>
   );

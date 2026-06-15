@@ -4,7 +4,7 @@ type PredictionsGoalInputTypes = {
   isEdit: boolean;
 };
 
-export default function PredictionsGoalInput({
+export default function MatchScoreInput({
   goals,
   onChange,
   isEdit,

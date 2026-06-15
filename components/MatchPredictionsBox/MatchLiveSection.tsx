@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MatchPredictionByUser from "./MatchPredictionItem";
+import MatchPredictionItem from "./MatchPredictionItem";
 import { ChevronUp } from "lucide-react";
 import { MatchType } from "@/utils/types/match";
 import { getBets } from "@/app/lib/api/getBets";
 import { BetType } from "@/utils/types/bet";
 import { getOutcomeBet } from "@/app/lib/getOutcomeBet";
 
-export default function MatchStartSection({
+export default function MatchLiveSection({
   matchData,
 }: {
   matchData: MatchType;
@@ -79,7 +79,7 @@ export default function MatchStartSection({
         >
           <div className="flex flex-col gap-2 w-full">
             {betsData.map((item) => (
-              <MatchPredictionByUser
+              <MatchPredictionItem
                 username={item.username}
                 score_home={item.score_home}
                 score_away={item.score_away}

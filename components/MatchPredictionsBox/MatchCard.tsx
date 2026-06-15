@@ -1,8 +1,8 @@
-import TeamBox from "./MatchTeam";
+import MatchTeam from "./MatchTeam";
 import { MatchType } from "@/utils/types/match";
 import MatchDate from "./MatchDate";
-import MatchStartSection from "./MatchLiveSection";
-import MatchScheduledSection from "./MatchBetForm";
+import MatchLiveSection from "./MatchLiveSection";
+import MatchBetForm from "./MatchBetForm";
 import { getStage } from "@/app/lib/getStage";
 
 type MatchPredictionsBoxType = {
@@ -10,7 +10,7 @@ type MatchPredictionsBoxType = {
   onBetPlaced?: (matchId: number) => void;
 };
 
-export default function MatchPredictionsBox({
+export default function MatchCard({
   matchData,
   onBetPlaced,
 }: MatchPredictionsBoxType) {
@@ -31,7 +31,7 @@ export default function MatchPredictionsBox({
       </div>
 
       <div className="flex justify-between w-full items-center">
-        <TeamBox
+        <MatchTeam
           name={matchData.home_team.name}
           flag={matchData.home_team.flag_src}
         />
@@ -49,19 +49,16 @@ export default function MatchPredictionsBox({
           />
         )}
 
-        <TeamBox
+        <MatchTeam
           name={matchData.away_team.name}
           flag={matchData.away_team.flag_src}
         />
       </div>
 
       {isMatchStart ? (
-        <MatchStartSection matchData={matchData} />
+        <MatchLiveSection matchData={matchData} />
       ) : (
-        <MatchScheduledSection
-          matchData={matchData}
-          onBetPlaced={onBetPlaced}
-        />
+        <MatchBetForm matchData={matchData} onBetPlaced={onBetPlaced} />
       )}
     </div>
   );

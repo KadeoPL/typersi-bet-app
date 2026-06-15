@@ -3,7 +3,7 @@ type TeamBoxTypes = {
   flag: string;
 };
 
-export default function TeamBox({ name, flag }: TeamBoxTypes) {
+export default function MatchTeam({ name, flag }: TeamBoxTypes) {
   return (
     <div className="flex flex-col gap-4 justify-center">
       <div
