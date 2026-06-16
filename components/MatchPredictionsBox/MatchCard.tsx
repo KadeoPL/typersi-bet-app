@@ -48,7 +48,9 @@ export default function MatchCard({
 
         {isMatchEnd ? (
           <div>
-            <div className="text-primary text-3xl font-bold">
+            <div
+              className={`text-primary ${matchCardView === "full" ? "text-3xl" : "text-xl"} font-bold`}
+            >
               {matchData.home_score} : {matchData.away_score}
             </div>
           </div>

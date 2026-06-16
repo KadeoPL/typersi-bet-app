@@ -189,28 +189,28 @@ export default function MatchBetForm({
         )}
       </div>
       <div
-        className={`text-xs font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+        className={`text-xs font-semibold text-textSecondary mt-4 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
         {hasBet ? (
-          <div className="bg-success text-textPrimary px-2 py-1 rounded-xl">
+          <div className="text-success">
             ✓ Typ zapisany, rozwiń, aby edytować
           </div>
         ) : (
-          <div className="bg-danger text-textPrimary px-2 py-1 rounded-xl">
-            Rozwiń, aby wytypować mecz
-          </div>
+          <div className="text-danger">Rozwiń, aby wytypować mecz</div>
         )}
       </div>
+
       <ChevronUp
         className={`
-              text-white mt-4 cursor-pointer
+              text-textPrimary mt-4 cursor-pointer
               transition-transform duration-300
               ${isOpen ? "rotate-0" : "rotate-180"}
             `}
         onClick={() => setIsOpen(!isOpen)}
+        size={16}
       />
       {error && <p className="text-danger ">{error}</p>}
     </>
