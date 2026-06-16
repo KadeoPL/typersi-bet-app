@@ -5,7 +5,7 @@ type MatchPredictionByUserType = {
   outcome_bet: string;
 };
 
-export default function MatchPredictionByUser({
+export default function MatchPredictionItem({
   username,
   score_away,
   score_home,

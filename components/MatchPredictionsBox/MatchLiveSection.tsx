@@ -1,18 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MatchPredictionByUser from "./MatchPredictionItem";
+import MatchPredictionItem from "./MatchPredictionItem";
 import { ChevronUp } from "lucide-react";
 import { MatchType } from "@/utils/types/match";
 import { getBets } from "@/app/lib/api/getBets";
 import { BetType } from "@/utils/types/bet";
 import { getOutcomeBet } from "@/app/lib/getOutcomeBet";
+import { MatchCardView } from "@/utils/providers/UserPreferencesProvider";
 
-export default function MatchStartSection({
-  matchData,
-}: {
+type MatchLiveSectionType = {
   matchData: MatchType;
-}) {
+  view: MatchCardView;
+};
+
+export default function MatchLiveSection({
+  matchData,
+  view,
+}: MatchLiveSectionType) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [betsData, setBetsData] = useState<BetType[]>([]);
   const myOutcomeBet = getOutcomeBet({
@@ -37,12 +42,20 @@ export default function MatchStartSection({
   return (
     <>
       <div className="w-full ">
-        <div className="text-center text-sm text-textPrimary">Twój typ</div>
+        {view === "full" && (
+          <div className="text-center text-sm text-textPrimary">Twój typ</div>
+        )}
 
-        <div className="flex justify-around mt-2 items-center">
-          <div className="flex flex-col gap-1 max-w-1/2">
-            <div className="text-center text-sm text-textSecondary">Wynik</div>
-            <div className="text-primary bg-surfaceLight py-2 px-4 rounded-lg">
+        <div
+          className={`flex justify-around mt-2 items-center  ${view === "full" ? "block" : "hidden"}`}
+        >
+          <div
+            className={`flex max-w-1/2 ${view === "full" ? "flex-col gap-1" : "flex-row items-center gap-2"}`}
+          >
+            <div className="text-center text-sm text-textSecondary">Wynik:</div>
+            <div
+              className={`text-primary ${view === "full" ? "bg-surfaceLight py-2 px-4" : "bg-transparent py-0 px-0"} font-semibold rounded-lg`}
+            >
               {matchData.my_bet
                 ? `${matchData.my_bet.score_home}
              :
@@ -51,11 +64,15 @@ export default function MatchStartSection({
             </div>
           </div>
 
-          <div className="flex flex-col gap-1 max-w-1/2">
+          <div
+            className={`flex max-w-1/2 ${view === "full" ? "flex-col gap-1" : "flex-row items-center gap-2 "}`}
+          >
             <div className="text-center text-sm text-textSecondary">
-              Zwycięzca
+              Zwycięzca:
             </div>
-            <div className="text-primary bg-surfaceLight py-2 px-4 rounded-lg">
+            <div
+              className={`text-primary ${view === "full" ? "bg-surfaceLight py-2 px-4" : "bg-transparent py-0 px-0"} font-semibold rounded-lg`}
+            >
               {myOutcomeBet}
             </div>
           </div>
@@ -63,7 +80,7 @@ export default function MatchStartSection({
       </div>
       <div className="flex flex-col w-full items-center">
         <h1
-          className={`text-sm font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+          className={`text-xs font-semibold text-textSecondary mt-4 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
           onClick={() => {
             setIsOpen(!isOpen);
           }}
@@ -79,7 +96,7 @@ export default function MatchStartSection({
         >
           <div className="flex flex-col gap-2 w-full">
             {betsData.map((item) => (
-              <MatchPredictionByUser
+              <MatchPredictionItem
                 username={item.username}
                 score_home={item.score_home}
                 score_away={item.score_away}

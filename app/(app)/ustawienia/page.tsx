@@ -23,7 +23,7 @@ export default function page() {
             <Settings2 className="text-primary" size={20} />
             Zarządzaj
           </h3>
-          <ul className="flex flex-col gap-3 text-textPrimary ">
+          <ul className="flex flex-col gap-3 text-textPrimary text-base ">
             {settingsUserItems.map((item, index) =>
               item.url ? (
                 <Link href={item.url} key={index}>

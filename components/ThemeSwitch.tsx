@@ -1,5 +1,5 @@
 import { useTheme } from "next-themes";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   text: string;
@@ -7,10 +7,19 @@ type Props = {
 
 export default function ThemeSwitch({ text }: Props) {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="bg-secondary p-4 rounded-lgw-full flex justify-between items-center "
+      className="bg-secondary p-4 rounded-lg w-full flex justify-between items-center "
     >
       <span>{text}</span>
 

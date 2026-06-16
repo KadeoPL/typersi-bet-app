@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MatchPredictionsBox from "@/components/MatchPredictionsBox/MatchCard";
+import MatchCard from "@/components/MatchPredictionsBox/MatchCard";
 import MatchStatusBox from "@/components/MatchStatusBox";
 import { MatchType } from "@/utils/types/match";
-import { LoaderCircle } from "lucide-react";
 import Loader from "@/components/Loader";
 import MatchFilterItem from "@/components/MatchFilterItem";
 
@@ -130,7 +129,7 @@ export default function page() {
       <div className="mb-16">
         {!isLoading &&
           matchesData.map((match) => (
-            <MatchPredictionsBox
+            <MatchCard
               key={match.id}
               matchData={match}
               onBetPlaced={(matchId) => {

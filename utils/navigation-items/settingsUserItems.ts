@@ -11,4 +11,8 @@ export const settingsUserItems = [
     text: "Zmień avatar",
     url: "ustawienia/zmien-avatar",
   },
+  {
+    text: "Preferencje konta",
+    url: "ustawienia/preferencje",
+  },
 ];

@@ -1,6 +1,13 @@
 "use client";
 
-import { ChevronUp, LoaderCircle, Pencil, Save, Send } from "lucide-react";
+import {
+  ChevronUp,
+  Divide,
+  LoaderCircle,
+  Pencil,
+  Save,
+  Send,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import PredictionsGoalInput from "./MatchScoreInput";
 import PredictionsTeamRadioInput from "./MatchOutcomeSelect";
@@ -8,7 +15,7 @@ import { betMatch } from "@/app/lib/api/betMatch";
 import { MatchType } from "@/utils/types/match";
 import { patchBet } from "@/app/lib/api/patchBet";
 
-export default function MatchScheduledSection({
+export default function MatchBetForm({
   matchData,
   onBetPlaced,
 }: {
@@ -181,23 +188,29 @@ export default function MatchScheduledSection({
           </button>
         )}
       </div>
-      <h1
-        className={`text-xs font-semibold text-textSecondary mt-6 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+      <div
+        className={`text-xs font-semibold text-textSecondary mt-4 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
         onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
-        {hasBet
-          ? "✓ Typ zapisany, rozwiń, aby edytować"
-          : "Rozwiń, aby wytypować mecz"}
-      </h1>
+        {hasBet ? (
+          <div className="text-success">
+            ✓ Typ zapisany, rozwiń, aby edytować
+          </div>
+        ) : (
+          <div className="text-danger">Rozwiń, aby wytypować mecz</div>
+        )}
+      </div>
+
       <ChevronUp
         className={`
-              text-white mt-4 cursor-pointer
+              text-textPrimary mt-4 cursor-pointer
               transition-transform duration-300
               ${isOpen ? "rotate-0" : "rotate-180"}
             `}
         onClick={() => setIsOpen(!isOpen)}
+        size={16}
       />
       {error && <p className="text-danger ">{error}</p>}
     </>
