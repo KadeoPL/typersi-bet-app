@@ -1,3 +1,5 @@
+"use client";
+
 import MatchTeam from "./MatchTeam";
 import { MatchType } from "@/utils/types/match";
 import MatchDate from "./MatchDate";
