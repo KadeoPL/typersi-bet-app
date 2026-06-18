@@ -41,20 +41,18 @@ export default function MatchLiveSection({
 
   return (
     <>
-      <div className="w-full ">
-        {view === "full" && (
-          <div className="text-center text-sm text-textPrimary">Twój typ</div>
-        )}
+      <div
+        className={`w-full mt-2 ${view === "full" ? "block " : "flex items-center justify-around bg-surfaceLight p-1 rounded-lg"}`}
+      >
+        <div className="text-center text-xs text-textPrimary">Twój typ</div>
 
-        <div
-          className={`flex justify-around mt-2 items-center  ${view === "full" ? "block" : "hidden"}`}
-        >
+        <div className={`flex justify-around items-center gap-4`}>
           <div
             className={`flex max-w-1/2 ${view === "full" ? "flex-col gap-1" : "flex-row items-center gap-2"}`}
           >
-            <div className="text-center text-sm text-textSecondary">Wynik:</div>
+            <div className="text-center text-xs text-textSecondary">Wynik:</div>
             <div
-              className={`text-primary ${view === "full" ? "bg-surfaceLight py-2 px-4" : "bg-transparent py-0 px-0"} font-semibold rounded-lg`}
+              className={`text-primary ${view === "full" ? "bg-surfaceLight py-2 px-4 text-base" : "bg-transparent py-0 px-0 text-xs"} font-semibold rounded-lg`}
             >
               {matchData.my_bet
                 ? `${matchData.my_bet.score_home}
@@ -67,11 +65,11 @@ export default function MatchLiveSection({
           <div
             className={`flex max-w-1/2 ${view === "full" ? "flex-col gap-1" : "flex-row items-center gap-2 "}`}
           >
-            <div className="text-center text-sm text-textSecondary">
+            <div className="text-center text-xs text-textSecondary">
               Zwycięzca:
             </div>
             <div
-              className={`text-primary ${view === "full" ? "bg-surfaceLight py-2 px-4" : "bg-transparent py-0 px-0"} font-semibold rounded-lg`}
+              className={`text-primary ${view === "full" ? "bg-surfaceLight py-2 px-4 text-base" : "bg-transparent py-0 px-0 text-xs"} font-semibold rounded-lg`}
             >
               {myOutcomeBet}
             </div>
@@ -79,14 +77,14 @@ export default function MatchLiveSection({
         </div>
       </div>
       <div className="flex flex-col w-full items-center">
-        <h1
-          className={`text-xs font-semibold text-textSecondary mt-4 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
+        <div
+          className={`w-full text-xs font-semibold text-textSecondary mt-2 text-center ${!isOpen ? "block opacity-100" : "hidden opacity-0"} transition-all duration-300`}
           onClick={() => {
             setIsOpen(!isOpen);
           }}
         >
           Zobacz jak typowali inni
-        </h1>
+        </div>
         <div
           className={`
             w-full 
